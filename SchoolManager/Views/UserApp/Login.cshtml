@@ -1,0 +1,95 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login-form">
+        <p class="title"> Đăng nhập </p>
+        <br />
+        <div class="row m-0">
+
+            <div class="col-md-12 p-0">
+                <div class="box-input">
+                    <p>  Tài khoản </p>
+                    <input type="text" placeholder="Tài khoản" name="account" value="" id="account" />
+                </div>
+                <br />
+            </div>
+            <div class="col-md-12 p-0">
+                <div class="box-input">
+                    <p>  Mật khẩu </p>
+                    <input type="password" placeholder="123456" name="password" value="" id="password" />
+                </div>
+                <br />
+            </div>
+            <div class="col-md-12 p-0">
+                <div class="d-flex justify-content-between">
+                    <p> <input type="checkbox" name="name" value="" id="saveLoginStatus" /> <label for="saveLoginStatus"> Lưu đăng nhập </label> </p>
+                    <p> <a href="#">Quên mật khẩu  </a></p>
+                </div>
+            </div>
+            <button class="btn-login" type="button"> Đăng nhập </button>
+            <p class="d-flex m-0 mt-4 justify-content-start"> <a href="/UserManager/Register">Bạn chưa có tài khoản?</a> </p>
+        </div>
+
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        $(".btn-login").click(function () {
+            let account = $("#account").val();
+            let password = $('#password').val();
+            $.ajax({
+                url: '/UserApp/Login',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    account: account,
+                    password: password
+                },
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+                    if (res) {
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Đăng nhập thành công',
+                            })
+                        setTimeout(function () {
+                            location.href = "/Home/Index"; 
+                        },1000)
+                        
+                    } else {
+                        setTimeout(function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Đăng nhập thất bại',
+                                title: 'Tài khoản hoặc mật khẩu sai',
+                                footer: '<a href="/">Bạn chưa có tài khoản?</a>'
+                            })
+                        })
+                    }
+                },
+                error: function () {
+
+                },
+                complete: function () {
+                }
+            })
+        })
+    </script>
+</body>
+</html>

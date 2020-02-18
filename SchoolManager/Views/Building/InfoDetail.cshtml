@@ -1,0 +1,46 @@
+﻿@model SchoolManager.Models.Building
+<div class="jumbotron">
+    <h2>Thông Tin Chi tiết Tòa @Model.Name</h2>
+</div>
+<table class="table">
+    <thead>
+
+    </thead>
+    <tbody>
+        <tr>
+            <th>tên tòa : </th>
+            <td>@Model.Name</td>
+        </tr>
+
+        <tr>
+            <th>Ghi chú : </th>
+            <td>@Model.Node</td>
+        </tr>
+       
+        <tr>
+            <th>Ngày tạo : </th>
+            <td>@Model.CreateDate</td>
+        </tr>
+        <tr>
+            <th>Ngày cập nhật: </th>
+            <td>@Model.UpdateDate</td>
+        </tr>
+        <tr>
+            <th>Người tạo : </th>
+            <td>@Model.CreateBy</td>
+        </tr>
+        <tr>
+            <th>Người cập nhật: </th>
+            <td>@Model.UpdateBy</td>
+        </tr>
+        <tr>
+            <th>Trạng thái : </th>
+            <td>@Model.Status</td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+

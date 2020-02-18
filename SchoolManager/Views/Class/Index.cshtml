@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class=" container">
+    <h1> Quản lý lớp học </h1>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <label>Nhập tên lớp:</label>
+            <input type="text" name="searchname" value="" placeholder="Nhập từ khóa..." class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Nhập mã lớp</label>
+            <input type="text" name="searchcode" value="" placeholder="Nhập từ khóa..." class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <select  class="form-control subjectID" >
+                <option value="0">Tất ca</option>
+                @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+    
+    <hr />
+    <div class="list-class">
+
+    </div>
+    <hr />
+    <div class="form-add-edit">
+        @Html.Action("FormCreateEdit", "Class")
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Class.js"></script>
+    }

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="building">
+    <h1> Quản lý tòa nhà</h1>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" name="searchname" value="" placeholder="Nhập Từ khóa" class="form-control" />
+        </div>
+    </div>
+    <hr />
+
+    <div class="list-building">
+
+    </div>
+    <hr />
+    <div class="form-add-edit">
+        @Html.Action("FormCreateEdit", "Building")
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Building.js"></script>
+    }
+

@@ -1,0 +1,29 @@
+﻿<div class="add-or-edit">
+    <div class="row">
+        <div>
+            <input type="number" name="ID" value="" readonly hidden />
+        </div>
+        <div class="col-md-4">
+            <label>Name</label>
+            <input type="text" name="Name" value="" placeholder="Nguyen Thi..." class="form-control" />
+            <div class="error"></div>
+        </div>
+        <div class="col-md-4">
+            <label>Node</label>
+            <input type="text" name="Node" value="" class="form-control" />
+            <div class="error"></div>
+        </div>
+
+        <div class="col-md-3">
+            <label>Status</label>
+            <select class="form-control status" value="0">
+                <option value="0"> Đang hoạt động </option>
+                <option value="1"> Ngừng hoạt động </option>
+            </select>
+            <div class="error"></div>
+        </div>
+    </div>
+    <br />
+    <button class="btn btn-primary btn-createEdit"> Thêm mới  </button>
+    <button class="btn-update btn btn-success"> Cập nhập</button>
+</div>

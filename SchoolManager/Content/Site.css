@@ -1,0 +1,86 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.content-wrapper{
+    padding: 20px 32px !important; 
+    margin-top: 0 !important;  
+    background: #fff !important;  
+}
+
+.get-data .table button{
+    background: transparent ;   
+    border: none;  
+    margin:  0 0 0 8px  ;  
+    border-radius: 2px ; 
+}
+.pagination{
+    margin: 16px 0 ; 
+}
+.pagination button {
+    background: #ffff;
+    border: 1px solid #bababa;
+    padding: 4px 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 1px;
+    margin: 0 8px 0 0;
+}
+.pagination button:hover ,.pagination button.active {
+    background: #0069bc ; 
+    border: 1px solid #0069bc; 
+    color: #fff;  
+}
+
+.list-data .data-item {
+    padding: 4px 16px;
+    margin: 8px 0;
+    background: #fff;
+    border: 1px solid #93d6ff;
+    box-shadow: 0 0 1px #93d6ff;
+    border-radius: 2px;
+}
+.list-data .data-item p{
+    font-size: 16px; 
+    margin: 6px 0 ; 
+   
+}
+.list-data p.data-title{
+    font-size: 18px; 
+    font-weight: 500; 
+}
+
+.btn-edit{
+    
+}
+.add-or-edit label {
+    font-size: 22px;
+    font-weight: 400 !important;
+}
+.add-or-edit button{
+    margin : 0 8px 0 0; 
+}
+.error p{
+    font-size: 14px;  
+    color: #ff0000; 
+    margin: 0 ; 
+}

@@ -1,0 +1,57 @@
+﻿@model IEnumerable< SchoolManager.ViewModels.UserViewModel>
+
+    <div class="list-data">
+
+        
+        <div class="row data-item">
+            <div class="col-md-3 d-flex justify-content-start">
+                <p class="data-title"> Tên người dùng </p>
+            </div>
+            <div class="col-md-3 d-flex justify-content-start">
+                <p class="data-title"> Tên tài khoản </p>
+            </div>
+            <div class="col-md-3 d-flex justify-content-start">
+                <p class="data-title"> Email </p>
+            </div>
+            <div class="col-md-2 d-flex justify-content-start">
+                <p class="data-title">Điện thoại </p>
+            </div>
+            <div class="col-md-1 d-flex justify-content-end">
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="row data-item">
+                <div class="col-md-3 d-flex justify-content-start">
+                    <p> @item.Name </p>
+                </div>
+                <div class="col-md-3 d-flex justify-content-start">
+                    <p> @item.Account </p>
+                </div>
+                <div class="col-md-3 d-flex justify-content-start">
+                    <p> @item.Email </p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-start">
+                    <p> @item.Phone </p>
+                </div>
+                <div class="col-md-1 d-flex justify-content-end">
+                    <button class="btn btn-delete"> <i class="far fa-trash-alt text-danger"></i> </button>
+                </div>
+            </div>
+        }
+        <div class="pagination">
+            @for (int i = 1; i <= ViewBag.pageCount; i++)
+            {
+                if (i == ViewBag.pageNumber)
+                {
+                    <button data-page="@i" class="active">  @i  </button>
+
+                }
+                else
+                {
+                    <button data-page="@i">  @i  </button>
+                }
+            }
+        </div>
+    </div>
+

@@ -1,0 +1,40 @@
+﻿@model SchoolManager.Models.Faculty
+<div class="jumbotron">
+    
+    <h2>Thông tin khoa @Model.Name</h2>
+</div>
+<table class="table table-hover">
+    <thead></thead>
+    <tbody> 
+        <tr>
+            <td>Name</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Node</td>
+            <td>@Model.Node</td>
+        </tr>
+        <tr>
+            <td>CreateDate</td>
+            <td>@Model.CreateDate</td>
+        </tr>
+        <tr>
+            <td>CreateBy</td>
+            <td>@Model.CreateBy</td>
+        </tr>
+        <tr>
+            <td>UpdateDate</td>
+            <td>@Model.UpdateDate</td>
+        </tr>
+        <tr>
+            <td>UpdateBy</td>
+            <td>@Model.UpdateBy</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>@Model.Status</td>
+        </tr>
+    </tbody>
+
+</table>
+@*<button class="btn btn-danger btn-back">Back</button>*@
