@@ -91,6 +91,12 @@ function AddBuilding() {
                 success: function (res) {
 
                     if (res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm thành công!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
                         GetListBuilding();
                         DefaultValueInput();
 
@@ -117,29 +123,37 @@ function Update() {
 
         var name = $('.add-or-edit input[name="name"]').val();
         var node = $('.add-or-edit input[name="node"]').val();
-        var status = $('.add-or-edit .status').val(); 
+        var status = $('.add-or-edit .status').val();
+        if(Check(name, node)){
+            $.ajax({
+                url: "/Building/Update",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: id,
+                    name: name,
+                    node: node,
+                    status: status
+                },
+                beforeSend: function () { },
+                success: function (res) {
 
-        $.ajax({
-            url: "/Building/Update",
-            type: "POST",
-            dataType: "json",
-            data: {
-                id: id,
-                name: name,
-                node: node,
-                status: status
-            },
-            beforeSend: function () { },
-            success: function (res) {
-
-                if (res) {
-                    GetListBuilding();
-                    DefaultValueInput();
-                }
-            },
-            error: function () { },
-            complete: function () { },
-        })
+                    if (res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cập nhập thành công!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        GetListBuilding();
+                        DefaultValueInput();
+                    }
+                },
+                error: function () { },
+                complete: function () { },
+            })
+        }
+        
     })
 
 
@@ -148,32 +162,48 @@ Update();
 function DeleteBuilding() {
     $('.btn-delete').click(function () {
         id = $(this).attr('data-id');
-        debugger;
-        $.ajax({
-            url: "/Building/Delete",
-            type: "POST",
-            dataType: "json",
+        Swal.fire({
+            title: 'Bạn có muốn xóa không?',
+            text: "Dữ liệu sẽ bị mất!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: "/Building/Delete",
+                    type: "POST",
+                    dataType: "json",
 
-            data: {
-                id: id
-            },
+                    data: {
+                        id: id
+                    },
 
-            beforeSend: function () {
+                    beforeSend: function () {
 
-            },
-            success: function (res) {
+                    },
+                    success: function (res) {
 
-                if (res) {
-                    GetListBuilding();
-                    DefaultValueInput();
-                }
+                        if (res) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Xóa thành công!',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                            GetListBuilding();
+                        }
 
-            },
-            error: function () { },
-            complete: function () { },
+                    },
+                    error: function () { },
+                    complete: function () { },
 
-        }
-        )
+                })
+            }
+        })
+        
     })
 }
 DeleteBuilding();

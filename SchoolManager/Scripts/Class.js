@@ -216,7 +216,7 @@ function DeleteClass() {
                 })
             }
         })
-        })
+    })
  }
 DeleteClass();
 function Pagination() {

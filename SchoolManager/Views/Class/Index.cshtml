@@ -16,7 +16,8 @@
             <input type="text" name="searchcode" value="" placeholder="Nhập từ khóa..." class="form-control" />
         </div>
         <div class="col-md-4">
-            <select  class="form-control subjectID" >
+            <label>Môn học</label>
+            <select class="form-control subjectID">
                 <option value="0">Tất ca</option>
                 @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
                 {

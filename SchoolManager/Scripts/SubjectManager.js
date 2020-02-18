@@ -65,7 +65,18 @@
 
                     },
                     success: function (res) {
-                        GetListSubject();
+                        if (res) {
+                            Swal.fire({
+
+                                icon: 'success',
+                                title: 'Thêm thành công!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            GetListSubject();
+                            DefaultValue(); 
+                        }
+                        
                     },
                     error: function () {
 
@@ -104,58 +115,94 @@
             var Node = $('.add-or-edit input[name="Node"]').val();
            
             var Status = $('.add-or-edit .status').val();
+            if (CheckError(Name, Node, Status)) {
+                $.ajax({
+                    url: "/Subject/Update",
+                    type: "Post",
+                    dataType: "Json",
+                    data: {
+                        id: id,
+                        Name: Name,
+                        Node: Node,
 
-            $.ajax({
-                url: "/Subject/Update",
-                type: "Post",
-                dataType: "Json",
-                data: {
-                    id : id,
-                    Name: Name,
-                    Node: Node,
-                    
-                    Status: Status,
-                },
-                beforSend: function () {
+                        Status: Status,
+                    },
+                    beforSend: function () {
 
-                },
-                success: function (res) {
-                    GetListSubject();
-                },
-                error: function () {
+                    },
+                    success: function (res) {
+                        if (res) {
+                            Swal.fire({
 
-                },
-                complete: function () {
+                                icon: 'success',
+                                title: 'Cập nhập thành công!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            GetListSubject();
+                            DefaultValue();
+                        }
+                    },
+                    error: function () {
 
-                }
-            })
+                    },
+                    complete: function () {
+
+                    }
+                })
+            }
+            
         })
     }
 
     function Delete() {
         $('.btn-delete').click(function () {
             var id = $(this).attr('data-id');
-            $.ajax({
-                url: "/Subject/Delete",
-                type: "Post",
-                dataType: "Json",
-                data: {
-                    id: id,
-                    
-                },
-                beforSend: function () {
+            Swal.fire({
+                title: 'Bạn có muốn xóa không?',
+                text: "Dữ liệu sẽ bị mất!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "/Subject/Delete",
+                        type: "Post",
+                        dataType: "Json",
+                        data: {
+                            id: id,
 
-                },
-                success: function (res) {
-                    GetListSubject();
-                },
-                error: function () {
+                        },
+                        beforSend: function () {
 
-                },
-                complete: function () {
+                        },
+                        success: function (res) {
+                            if (res) {
+                                Swal.fire({
 
+                                    icon: 'success',
+                                    title: 'Xóa thành công!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                GetListSubject();
+
+                            }
+                        },
+                        error: function () {
+
+                        },
+                        complete: function () {
+
+                        }
+                    })
                 }
             })
+
+           
         })
     }
     function DefaultValue() {

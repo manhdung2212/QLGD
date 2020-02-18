@@ -12,7 +12,7 @@
             <div class="error"></div>
         </div>
         <div class="col-md-3">
-            <label>Mã môn học</label>
+            <label>Tên môn học</label>
             <select id="subjectid" class="form-control" value="1">
                 @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
                 {
@@ -22,7 +22,7 @@
             <div class="error"></div>
         </div>
         <div class="col-md-3">
-            <label>Mã giảng viên</label>
+            <label>Tên giảng viên</label>
             <select id="lecturerid" class="form-control" value="1">
                 @foreach (var item in (ViewBag.listLecturer as IEnumerable<SchoolManager.Models.Lecturer>))
                 {

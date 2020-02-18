@@ -21,31 +21,39 @@ function Update() {
         var Name = $('.add-or-edit input[name="Name"]').val();
         var Node = $('.add-or-edit input[name="Node"]').val();
         var Status = $('.add-or-edit .status').val();
-      
-        $.ajax({
-            url: "/FacultyManager/Update",
-            type: "POST",
-            dataType: "json",
-            data: {
-                ID: ID,
-                Name: Name,
-                Node: Node,           
-                Status: Status
-            },
-            beforeSend: function () {
+        if(check(Name, Node)){
+            $.ajax({
+                url: "/FacultyManager/Update",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    ID: ID,
+                    Name: Name,
+                    Node: Node,
+                    Status: Status
+                },
+                beforeSend: function () {
 
-            },
-            success: function (res) {
-                if (res) {
-                    GetListFaculty();
-                    DefaultValueInput();
-                }
+                },
+                success: function (res) {
+                    if (res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cập nhập thành công!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        GetListFaculty();
+                        DefaultValueInput();
+                    }
 
-            },
-            error: function () { },
-            complete: function () { }
+                },
+                error: function () { },
+                complete: function () { }
 
-        });
+            });
+        }
+        
     })
 }
 EditClick();
@@ -134,6 +142,12 @@ function AddFaculty() {
                 },
                 success: function (res) {
                     if (res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm thành công!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
                         GetListFaculty();
                         DefaultValueInput();
 
@@ -161,29 +175,47 @@ function DefaultValueInput() {
 function Delete() {
     $('.btn-delete').click(function () {
         var ID = $(this).attr("data-id");
+        Swal.fire({
+            title: 'Bạn có muốn xóa không?',
+            text: "Dữ liệu sẽ bị mất!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: "/FacultyManager/Delete",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        ID: ID
 
-        $.ajax({
-            url: "/FacultyManager/Delete",
-            type: "POST",
-            dataType: "json",
-            data: {
-                ID: ID
+                    },
+                    beforeSend: function () {
 
-            },
-            beforeSend: function () {
+                    },
+                    success: function (res) {
+                        if (res) {
+                            Swal.fire({
 
-            },
-            success: function (res) {
-                if (res) {
+                                icon: 'success',
+                                title: 'Xóa thành công!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            GetListFaculty();
 
-                    GetListFaculty();
+                        }
+                    },
+                    error: function () { },
+                    complete: function () { }
 
-                }
-            },
-            error: function () { },
-            complete: function () { }
-
-        });
+                });
+            }
+        })
+        
     })
 }
 Delete();

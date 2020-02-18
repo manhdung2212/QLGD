@@ -38,8 +38,7 @@ namespace SchoolManager.Controllers
                           Status=s.Status,
                           SubjectName=c.Name,
                           LecturerName=z.Name,
-                      }
-                ;
+                      };
             if (search.Trim() != "")
             {
                 data = data.Where(x => x.Name.Contains(search)).OrderBy(x => x.Name);
