@@ -177,7 +177,7 @@ function Delete() {
         var ID = $(this).attr("data-id");
         Swal.fire({
             title: 'Bạn có muốn xóa không?',
-            text: "Dữ liệu sẽ bị mất!",
+            text: "Lưu ý: Dữ liệu sau khi xóa sẽ không thể phục hồi!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

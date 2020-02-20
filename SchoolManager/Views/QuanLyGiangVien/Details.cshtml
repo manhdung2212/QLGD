@@ -1,0 +1,78 @@
+﻿@model SchoolManager.Models.Lecturer
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var khoa = ViewBag.khoa;
+}
+
+<h2>Thông tin chi tiết giảng viên</h2>
+<div>
+    <table class="table">
+        <tr>
+            <th>Họ và tên: </th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Giới tính: </th>
+            @if (Model.Gender == true)
+            {
+                <td>Nam</td>
+            }
+            else
+            {
+                <td>Nữ</td>
+            }
+        </tr>
+        <tr>
+            <th>Địa chỉ: </th>
+            <td>@Model.Address</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại: </th>
+            <td>@Model.Phone</td>
+        </tr>
+        <tr>
+            <th>Email: </th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Mã khoa: </th>
+            <td>@Model.FacultyID</td>
+        </tr>
+        <tr>
+            <th>Tên khoa: </th>
+            <td>@foreach (var itemKhoa in khoa)
+            {
+                if (Model.FacultyID == itemKhoa.ID)
+                {
+                    <text>@itemKhoa.Name</text>
+                }
+            }
+            </td>
+        </tr>
+        <tr>
+            <th>Ghi chú: </th>
+            <td>@Model.Node</td>
+        </tr>
+        <tr>
+            <th>Ngày tạo: </th>
+            <td>@Model.CreateDate</td>
+        </tr>
+        <tr>
+            <th>Ngày cập nhật: </th>
+            <td>@Model.UpdateDate</td>
+        </tr>
+        <tr>
+            <th>Tạo bởi: </th>
+            <td>@Model.CreateBy</td>
+        </tr>
+        <tr>
+            <th>Cập nhật bởi: </th>
+            <td>@Model.UpdateBy</td>
+        </tr>
+        <tr>
+            <th>Trạng thái: </th>
+            <td>@Model.Status</td>
+        </tr>
+    </table>
+</div>

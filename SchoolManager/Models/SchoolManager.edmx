@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Building">
           <Key>
             <PropertyRef Name="ID" />
@@ -176,8 +176,8 @@
           <Property Name="Description" Type="nvarchar" MaxLength="2000" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
-          <Property Name="CreateBy" Type="nvarchar" MaxLength="2000" />
-          <Property Name="UpdateBy" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="UserManager">
@@ -203,8 +203,7 @@
           <EntitySet Name="UserApp" EntityType="Self.UserApp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserManager" EntityType="Self.UserManager" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -379,8 +378,8 @@
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateBy" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CreateBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int32" />
         </EntityType>
         <EntityType Name="UserManager">

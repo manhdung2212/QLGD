@@ -41,9 +41,10 @@ namespace SchoolManager.Controllers
 
 
         }
-        public PartialViewResult FormCreateEdit()
+        public PartialViewResult FormCreateEdit( int id )
         {
-
+            ViewBag.data = db.Buildings.Find(id);  
+            
             return PartialView();
         }
        
@@ -53,30 +54,29 @@ namespace SchoolManager.Controllers
             return PartialView(cl);
         }
 
+        [HttpPost]
+        public JsonResult AddOrEdit(int id, string node, string name, int status)
+        {
+            if( id == 0)
+            {
+                Building cl = new Building();
+                cl.Node = node;
+                cl.Name = name;
+                cl.Status = status;
+                cl.CreateDate = DateTime.Now;
 
-        [HttpPost]
-        public JsonResult Create(string node, string name , int status)
-        {
-            Building cl = new Building();
-            cl.Node = node;
-            cl.Name = name;
-            cl.Status = status;  
-            cl.CreateDate = DateTime.Now;
-            
-            db.Buildings.Add(cl);
+                db.Buildings.Add(cl);
+            }
+            else
+            {
+                var cl = db.Buildings.Find(id);
+                cl.Node = node;
+                cl.Name = name;
+                cl.Status = status;
+                cl.UpdateDate = DateTime.Now;
+            }
             db.SaveChanges();
-            return Json(true);
-        }
-        [HttpPost]
-        public JsonResult Update(int id, string node, string name , int status )
-        {
-            var cl = db.Buildings.Find(id);
-            cl.Node = node;
-            cl.Name = name;
-            cl.Status = status; 
-            cl.UpdateDate = DateTime.Now;
-            db.SaveChanges();
-            return Json(true);
+            return Json(true, JsonRequestBehavior.AllowGet); 
         }
         [HttpPost]
         public JsonResult Delete(int id)

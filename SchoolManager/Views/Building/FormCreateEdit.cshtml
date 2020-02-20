@@ -1,28 +1,64 @@
-﻿<div class="add-or-edit">
-    <div class="row">
-        <div class="col-md-3">
-            <label>Tên tòa nhà</label>
-            <input type="text" value="" name="name" class="form-control" />
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Ghi chú</label>
-            <input type="text" value="" name="node" class="form-control" />
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Trạng thái</label>
-            <select class="form-control status" value="0">
-                <option value="0"> Đang hoạt động </option>
-                <option value="1"> Ngừng  hoạt động </option>
-            </select>
-            <div class="error"></div>
-        </div>
-    </div>
-    <br />
-    <button class="btn btn-primary btn-createEdit">Thêm mới</button>
-    <button class="btn-update btn btn-success">Cập nhật</button>
-</div>
+﻿
 
 
 
+<form action="/" method="post" id="formAddOrEdit">
+    @if (ViewBag.data == null)
+    {
+        <input type="number" name="id" value="0" class="form-control hidden" readonly hidden />
+        <div class="row m-0">
+            <div class="col-md-3">
+                <label>Tên tòa nhà</label>
+                <input type="text" value="" name="name" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Ghi chú</label>
+                <input type="text" value="" name="node" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Trạng thái</label>
+                <select class="form-control status" value="0" name="status">
+                    <option value="0"> Đang hoạt động </option>
+                    <option value="1"> Ngừng  hoạt động </option>
+                </select>
+                <div class="error"></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <input type="number" name="id" value="@ViewBag.data.ID" class="form-control hidden" readonly hidden />
+        <div class="row m-0">
+            <div class="col-md-3">
+                <label>Tên tòa nhà</label>
+                <input type="text" value="@ViewBag.data.Name" name="name" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Ghi chú</label>
+                <input type="text" value="@ViewBag.data.Node" name="node" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Trạng thái</label>
+                <select class="form-control status" value="0" name="status">
+                    @if (@ViewBag.data.Status == 0)
+                    {
+                        <option value="0" selected> Đang hoạt động </option>
+                        <option value="1"> Ngừng  hoạt động </option>
+                    }
+                    else
+                    {
+                        <option value="0"> Đang hoạt động </option>
+                        <option value="1" selected> Ngừng  hoạt động </option>
+                    }
+
+                </select>
+                <div class="error"></div>
+            </div>
+        </div>
+    }
+
+</form>

@@ -1,68 +1,46 @@
-﻿var pageNumber = 1;
-var pageSize = 5;
-var search = ""; 
-function GetListStudent() {
+﻿
 
-    $.ajax({
-        url: "/UserApp/ListUser",
-        type: "POST",
-        dataType: "html",
-        data: {
-            pageNumber: pageNumber,
-            pageSize: pageSize,
-            search: search
-        },
-        beforeSend: function () {
 
-        },
-        success: function (res) {
-            $('.get-data').html('');
-            $('.get-data').append(res);
-            EditClick();
-            Pagination();
-        },
-        error: function () {
-
-        },
-        complete: function () {
-
-        }
-    })
+var data = {
+    pageNumber: 1,  
+    pageSize: 5, 
+    search: ''
 }
-function AddOrEdit() {
-    var data = {};
-    $('.add-or-edit input ').each(function () {
-        var key = $(this).attr('name');
-        var value = $(this).val();
-        data[key] = value;  
-        
+function GetListStudent(url, classAppend) {
+    SchoolCommonJS.getDataFillter(data, url, classAppend);
+}
+function Pagination(pageNumber, url, classAppend) {
+    data.pageNumber = pageNumber;  
+    SchoolCommonJS.getDataFillter(data, url, classAppend); 
+
+}
+function Delete(id, url_delete, url_getList, classAppend) {
+    SchoolCommonJS.Delete(id, url_delete, data, url_getList, classAppend);
+}
+function Search(url, classAppend) {
+    $('input[name="searchname"]').keyup(function () {
+        data.search = $(this).val();
+        SchoolCommonJS.getDataFillter(data, url, classAppend);
     })
-    $.ajax({
-        url: "/UserApp/AddOrEdit",
-        type: "POST",
-        contentType: 'application/json', 
-        dataType: "json",
-        data: JSON.stringify(data),
-        beforeSend: function () {
+     
+}
+function EditClick(id, url, classAppend) {
+    $('.btn-createEdit').html('Cập nhập'); 
 
-        },
-        success: function (res) {
-            if (res) {
-                GetListStudent();
-                DefaultValueInput();
-            }
-        },
-        error: function () {
+    SchoolCommonJS.setDataOnForm(id, url, classAppend); 
+}
+function AddClick(id, url, classAppend) {
+    $('.btn-createEdit').html('Thêm mới');
 
-        },
-        complete: function () {
-
-        }
-    })
+    SchoolCommonJS.setDataOnForm(id, url, classAppend);
+}
+function AddOrEdit(idForm, url_add, url_getList, classAppend) {
+    SchoolCommonJS.AddOrEdit(idForm, url_add, data, url_getList, classAppend);  
 }
 function DefaultValueInput() {
     $('.add-or-edit input ').each(function () {
         $(this).val(''); 
 
     })
+    $('input[name="id"]').val(0); 
 }

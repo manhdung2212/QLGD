@@ -4,7 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SchoolManager.Models;
-using SchoolManager.ViewModels;  
+using SchoolManager.ViewModels; 
+using SchoolManager.Utilities;
+using System.Net.Mail;
+using System.Net;
+
 namespace SchoolManager.Controllers
 {
     public class UserAppController : Controller
@@ -47,19 +51,23 @@ namespace SchoolManager.Controllers
                        join userApp in db.UserApps on u.ID equals userApp.ID
                        select new UserViewModel
                        {
-                           ID = u.ID,
-                           Account = u.Account,
-                           Name = userApp.Name,
-                           Phone = userApp.Phone,
-                           Email = userApp.Email,
-                           DateLogin = u.DateLogin
+                           userApp = userApp ,  
+                           userManager = u
                        };  
-
-            var pageCount = data.Count() % pageSize == 0 ? data.Count() % pageSize : data.Count() / pageSize + 1;
+            if( search.Trim() != "" )
+            {
+                data = data.Where(x => x.userApp.Name.ToLower().Contains(search.ToLower()));  
+            }
+            var pageCount = data.Count() % pageSize == 0 ? data.Count() / pageSize : data.Count() / pageSize + 1;
             ViewBag.pageCount = pageCount;
             ViewBag.pageNumber = pageNumber;  
-            data.OrderBy(x => x.Account).Skip(pageNumber * pageSize - pageSize).Take(pageSize).ToList();
-            return PartialView(data);
+            if( pageNumber <= pageCount)
+            {
+                var model = data.OrderBy(x => x.userApp.Name).Skip(pageNumber * pageSize - pageSize).Take(pageSize).ToList();
+                return PartialView(model);
+
+            }
+            return PartialView(data.OrderBy( x => x.userApp.Name).ToList());
         
         }
 
@@ -80,7 +88,76 @@ namespace SchoolManager.Controllers
                 db.SaveChanges();
                 return Json(true , JsonRequestBehavior.AllowGet);
             }
+            else
+            {
+                var user = db.UserApps.Find(id);
+                var userApp = db.UserManagers.Find(id);  
+            }
             return Json( false , JsonRequestBehavior.AllowGet);  
+        }
+        [HttpPost]
+        public JsonResult Delete( int id)
+        {
+            var model = db.UserManagers.Find(id);
+            if (model != null) db.UserManagers.Remove(model);
+            var data = db.UserApps.Find(id);
+            if (data != null) db.UserApps.Remove(data);
+            db.SaveChanges(); 
+            return Json(true); 
+        }
+        public ActionResult ForgotPassword()
+        {
+            return View();  
+        }
+        public JsonResult GetEmail( string email )
+        {
+            if( CheckContains.ContainEmail(email))
+            {
+                SendEmail(email); 
+                return Json(true , JsonRequestBehavior.AllowGet);  
+            }
+            return Json(false , JsonRequestBehavior.AllowGet);  
+        }
+        public void SendEmail ( string email)
+        {
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = true,
+                Credentials = new NetworkCredential("manhdung22122000@gmail.com", "manhdung123")
+            };
+            var mes = new MailMessage("manhdung22122000@gmail.com", email)
+            {
+                Subject = " Mail xác nhận tài khoản ",
+                Body = "https://localhost:44311/QuanLyGiangVien/Index"
+            };
+            smtp.Send(mes); 
+        }
+
+        public JsonResult GetByID(int id)
+        {
+            var model = db.UserApps.Find(id);
+            return Json(model, JsonRequestBehavior.AllowGet); 
+
+        }
+
+        [HttpPost]
+        public PartialViewResult GetFromUpdate( int id )
+        {
+            var data = (from u in db.UserManagers
+                        join userApp in db.UserApps on u.ID equals userApp.ID
+                        where u.ID == id
+                        select new UserViewModel
+                        {
+                            userApp = userApp,
+                            userManager = u
+                        }).FirstOrDefault();
+            ViewBag.data = data; 
+            return PartialView(); 
+
         }
     }
 }
