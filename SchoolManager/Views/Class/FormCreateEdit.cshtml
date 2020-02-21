@@ -1,0 +1,46 @@
+﻿
+<div class="add-or-edit">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Mã lớp</label>
+            <input type="text" value="" name="code" class="form-control" />
+            <div class="error"></div>
+        </div>
+        <div class="col-md-3">
+            <label>Tên lớp</label>
+            <input type="text" value="" name="name" class="form-control" />
+            <div class="error"></div>
+        </div>
+        <div class="col-md-3">
+            <label>Tên môn học</label>
+            <select id="subjectid" class="form-control" value="1">
+                @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            </select>
+            <div class="error"></div>
+        </div>
+        <div class="col-md-3">
+            <label>Tên giảng viên</label>
+            <select id="lecturerid" class="form-control" value="1">
+                @foreach (var item in (ViewBag.listLecturer as IEnumerable<SchoolManager.Models.Lecturer>))
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            </select>
+            <div class="error"></div>
+        </div>
+        <div class="col-md-3">
+            <label>Ghi chú</label>
+            <textarea id="node" value="" class="form-control"></textarea>
+            <div class="error"></div>
+        </div>
+        
+    </div>
+    <br />
+    <button class="btn btn-primary btn-createEdit">Thêm mới</button>
+    <button class="btn-update btn btn-success">Cập nhật</button>
+</div>
+
+

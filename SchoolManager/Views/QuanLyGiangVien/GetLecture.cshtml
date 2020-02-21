@@ -1,0 +1,74 @@
+﻿@model  SchoolManager.ViewModels.LectureViewModel
+
+
+
+    <h2> @Model.lecturer.Name</h2>
+    <div class="">
+        <table class="table table-striped">
+            <tr>
+                <th> Giới tính </th>
+                @if (Model.lecturer.Gender == true)
+                {
+                    <td> Nam</td>
+                }
+                else
+                {
+                    <td> Nữ </td>
+
+                }
+            </tr>
+            <tr>
+                <th> Ngày sinh </th>
+                <td> @Model.lecturer.Birthday</td>
+            </tr>
+            <tr>
+                <th> Địa chỉ </th>
+                <td> @Model.lecturer.Address</td>
+            </tr>
+            <tr>
+                <th> Địa chỉ mail </th>
+                <td> @Model.lecturer.Email</td>
+            </tr>
+            <tr>
+                <th> Số điện thoại </th>
+                <td> @Model.lecturer.Phone</td>
+            </tr>
+            <tr>
+                <th> Giảng viên khoa </th>
+                <td> @Model.faculty.Name</td>
+            </tr>
+            <tr>
+                <th> Mô tả </th>
+                <td> @Model.lecturer.Node</td>
+            </tr>
+            <tr>
+                <th> Ngày thêm </th>
+                <td> @Model.lecturer.CreateDate</td>
+            </tr>
+            <tr>
+                <th>Người thêm </th>
+                <td> @Model.lecturer.CreateBy</td>
+            </tr>
+            <tr>
+                <th> Ngày cập nhập </th>
+                <td> @Model.lecturer.UpdateDate</td>
+            </tr>
+            <tr>
+                <th>Người cập nhập </th>
+                <td> @Model.lecturer.UpdateBy</td>
+            </tr>
+            <tr>
+                <th> Trang thái </th>
+                @if (Model.lecturer.Status == 0)
+                {
+                    <td> Đang giảng dạy </td>
+
+                }
+                else
+                {
+                    <td> Ngừng giảng dạy </td>
+
+                }
+            </tr>
+        </table>
+    </div>

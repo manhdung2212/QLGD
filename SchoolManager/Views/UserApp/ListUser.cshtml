@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SchoolManager.ViewModels.UserViewModel>
+<div class="data-body">
+    <table class="table">
+        <thead class="bg-gradient-light">
+            <tr>
+                <th> Họ và tên </th>
+                <th> Chức vụ </th>
+                <th> Tài khoản </th>
+                <th> Phone </th>
+                <th> Trạng thái </th>
+                <th class="d-flex justify-content-center"> Tác vụ </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @item.userApp.Name </td>
+                    <td> @item.userApp.Position</td>
+                    <td> @item.userManager.Account </td>
+                    <td> @item.userApp.Phone </td>
+                    @if (item.userApp.Status == 0)
+                    {
+                        <td> Đang hoạt động</td>
+                    }
+                    else
+                    {
+                        <td> Ngừng hoạt động</td>
+                    }
+                <td class="d-flex justify-content-end">
+                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.userApp.ID , '/UserApp/GetFromUpdate' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn btn-delete p-0" onclick="Delete(@item.userApp.ID , '/UserApp/Delete', '/UserApp/ListUser' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    @for (int i = 1; i <= ViewBag.pageCount; i++)
+    {
+        if (i == ViewBag.pageNumber)
+        {
+            <button data-page="@i" class="active">  @i  </button>
+
+        }
+        else
+        {
+            <button data-page="@i" onclick="Pagination( @i ,  '/UserApp/ListUser' , 'get-data')">  @i  </button>
+        }
+    }
+</div>

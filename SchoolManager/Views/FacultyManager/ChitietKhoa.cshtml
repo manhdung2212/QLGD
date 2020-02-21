@@ -1,0 +1,41 @@
+﻿@model SchoolManager.Models.Faculty
+<h2>Khoa @Model.Name</h2>
+
+<table class="table table-striped">
+    <thead></thead>
+    <tbody>
+        <tr>
+            <th>Ghi chú</th>
+            <td>@Model.Node</td>
+        </tr>
+        <tr>
+            <th> Ngày tạo </th>
+            <td>@Model.CreateDate</td>
+        </tr>
+        <tr>
+            <th> Người tạo </th>
+            <td>@Model.CreateBy</td>
+        </tr>
+        <tr>
+            <th> Ngày cập nhập </th>
+            <td>@Model.UpdateDate</td>
+        </tr>
+        <tr>
+            <th>Người cập nhập</th>
+            <td>@Model.UpdateBy</td>
+        </tr>
+        <tr>
+            <th> Trạng thái</th>
+            @if( Model.Status == 0)
+            {
+                <td> Đang hoạt động</td>
+            }
+            else
+            {
+                <td> Ngừng hoạt động</td>
+            }
+        </tr>
+    </tbody>
+
+</table>
+@*<button class="btn btn-danger btn-back">Back</button>*@

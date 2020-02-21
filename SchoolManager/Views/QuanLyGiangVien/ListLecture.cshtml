@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SchoolManager.ViewModels.ViewModelLecturer>
+@{
+    var stt = ViewBag.pageNumber * ViewBag.pageSize - ViewBag.pageSize;
+}
+<div class="data-body">
+    <table class="table">
+        <thead class="bg-gradient-light">
+            <tr>
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th class="d-flex justify-content-center"> Tác vụ </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                stt++;
+            <tr>
+                <td>@stt</td>
+                <td> @item.name </td>
+                @if (item.Gender == true)
+                {
+                    <td>Nam</td>
+                }
+                else
+                {
+                    <td>Nữ</td>
+                }
+                <td>@item.Birthday</td>
+                <td>@item.address</td>
+                <td>@item.phone</td>
+                <td>@item.email</td>
+                <td class="d-flex justify-content-end">
+                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.ID , '/QuanLyGiangVien/FormCreateAndEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn btn-delete p-0" onclick="Delete(@item.ID , '/QuanLyGiangVien/Delete', '/QuanLyGiangVien/ListLecture' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                    <button data-toggle="modal" data-target="#details" type="button" onclick="GetByID(@item.ID, '/QuanLyGiangVien/Details', 'infoDetails')"><i class="fas fa-info-circle"></i></button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    @for (int i = 1; i <= ViewBag.pageCount; i++)
+    {
+        if (i == ViewBag.pageNumber)
+        {
+            <button data-page="@i" class="active">  @i  </button>
+
+        }
+        else
+        {
+            <button data-page="@i" onclick="Pagination( @i ,  '/QuanLyGiangVien/ListLecture' , 'get-data')">  @i  </button>
+        }
+    }
+</div>
+<div id="details" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-yellow'">
+                <h4 class="modal-title text-blue">Thông tin chi tiết</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body infoDetails">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
