@@ -1,0 +1,73 @@
+﻿@model SchoolManager.ViewModels.UserViewModel
+
+
+<h4> @Model.userApp.Name</h4>
+
+<table class="table table-striped">
+    <tr>
+        <th> Tài khoản  </th>
+        <td>@Model.userManager.Account</td>
+    </tr>
+    <tr>
+        <th> Chức vụ  </th>
+        <td>@Model.userApp.Position</td>
+    </tr>
+    <tr>
+        <th> Email  </th>
+        <td>@Model.userApp.Email</td>
+    </tr>
+
+    <tr>
+        <th> Số điện thoại  </th>
+        <td>@Model.userApp.Phone</td>
+    </tr>
+    <tr>
+        <th> Giới tính   </th>
+        @if (Model.userApp.Gender == true)
+        {
+            <td> Nam  </td>
+        }
+        else
+        {
+            <td> Nữ </td>
+        }
+    </tr>
+    <tr>
+        <th> Địa chỉ  </th>
+        <td>@Model.userApp.Address</td>
+    </tr>
+
+    <tr>
+        <th> Người thêm   </th>
+        <td>@Model.userApp.CreateBy</td>
+    </tr>
+    <tr>
+        <th> Ngày thêm    </th>
+        <td>@Model.userApp.CreateDate</td>
+    </tr>
+    <tr>
+        <th> Người cập nhập   </th>
+        <td>@Model.userApp.UpdateBy</td>
+    </tr>
+    <tr>
+        <th> Ngày cập nhập    </th>
+        <td>@Model.userApp.UpdateDate</td>
+    </tr>
+    <tr>
+        <th>Trạng thái  </th>
+        @if (Model.userApp.Status == 0)
+        {
+            <td> Đang hoạt động</td>
+
+        }
+        else
+        {
+            <td> Ngừng hoạt động</td>
+        }
+    </tr>
+
+</table>
+
+
+
+

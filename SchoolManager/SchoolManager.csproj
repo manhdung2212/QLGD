@@ -1972,6 +1972,8 @@
     <Content Include="Views\QuanLyGiangVien\GetLecture.cshtml" />
     <Content Include="Views\UserApp\ForgotPassword.cshtml" />
     <Content Include="Views\UserApp\GetFromUpdate.cshtml" />
+    <Content Include="Views\UserApp\GetByID.cshtml" />
+    <Content Include="Views\UserApp\UpdateInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

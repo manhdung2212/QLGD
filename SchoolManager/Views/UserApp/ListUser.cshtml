@@ -7,6 +7,7 @@
                 <th> Chức vụ </th>
                 <th> Tài khoản </th>
                 <th> Phone </th>
+                <td> Đăng nhập </td>
                 <th> Trạng thái </th>
                 <th class="d-flex justify-content-center"> Tác vụ </th>
             </tr>
@@ -19,6 +20,7 @@
                     <td> @item.userApp.Position</td>
                     <td> @item.userManager.Account </td>
                     <td> @item.userApp.Phone </td>
+                    <td> @item.userManager.DateLogin </td>
                     @if (item.userApp.Status == 0)
                     {
                         <td> Đang hoạt động</td>
@@ -29,6 +31,7 @@
                     }
                 <td class="d-flex justify-content-end">
                     <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.userApp.ID , '/UserApp/GetFromUpdate' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn p-0" data-toggle="modal" data-target="#modalDetails" type="button" onclick="GetByID( @item.userApp.ID , '/UserApp/GetByID' ,'infoDetails' )">  <i class="fas fa-info-circle text-primary"></i></button>
                     <button class="btn btn-delete p-0" onclick="Delete(@item.userApp.ID , '/UserApp/Delete', '/UserApp/ListUser' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
                 </td>
                 </tr>
@@ -36,7 +39,29 @@
         </tbody>
     </table>
 </div>
+<div class="modal fade" role="dialog" id="modalDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header bg-gradient-yellow">
+                <h4 class="modal-title text-white">Thông Tin Chi Tiết</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body infoDetails">
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="pagination">
     @for (int i = 1; i <= ViewBag.pageCount; i++)
     {

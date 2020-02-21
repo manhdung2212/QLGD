@@ -9,13 +9,11 @@
 
         return indexed_array;
     },
-    getByIdDataJson: function (id, url) { 
-        let data;  
+    getById: function (id, url , classAppend ) { 
         $.ajax({
-            async:false,
             url: url,
-            type: "GET",
-            dataType: 'json',
+            type: "POST",
+            dataType: 'html',
             data: {
                 id: id
             },
@@ -23,7 +21,8 @@
 
             },
             success: function (res) {
-                data = res;
+                $('.' + classAppend + '').html('');
+                $('.' + classAppend + '').append(res);
             },
             error: function () {
 
@@ -32,7 +31,6 @@
 
             }
         });
-        return data;
     }, 
     getDataFillter: function (condition,url , classAppend ) {
         $.ajax({
@@ -82,13 +80,14 @@
     },
     Delete: function (id, url_delete, condition, url_getList, classAppend) {
         Swal.fire({
-            title: 'Bạn có muốn xóa không',
-            text: "Lưu ý: Dữ liệu sẽ bị mất khi xóa!",
+            title: 'Bạn chắc chắn muốn xóa?',
+            text: "Lưu ý: Dữ liệu sẽ bị mất khi xóa.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa'
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -103,14 +102,13 @@
                     },
                     success: function (res) {
                         if (res) {
+                            SchoolCommonJS.getDataFillter(condition, url_getList, classAppend);
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Xóa thành công',
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 850
                             })
-                            SchoolCommonJS.getDataFillter(condition, url_getList, classAppend);
-
                         }
                     },
                     error: function () {

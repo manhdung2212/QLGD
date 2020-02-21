@@ -15,7 +15,7 @@ body {
     box-shadow: 0 0 2px;
     border-radius: 4px;
 }
-.login-form  .title{
+.login-form  .title , .update-info .title{
     font-size: 36px; 
     margin: 0 ;  
     text-transform: uppercase;  
@@ -48,4 +48,45 @@ button .spinner-border{
     width: 20px !important; 
     height: 20px !important;
     border: 2px dashed #fff !important ;  
+}
+.update-info{
+    max-width: 1000px; 
+    margin: 50px auto ;  
+    background: #fff ;  
+    padding: 20px 50px ;   
+    box-shadow: 0 0 2px #0073d9; 
+    border: 1px solid #0073d9; 
+}
+.update-info p{
+    margin: 8px 0   ;  
+}
+.update-info p.title{
+    font-size: 24px ;   
+
+}
+.update-info hr{
+    width: 300px ; 
+    border: 1px solid #0073d9;  
+    margin: 0 0 32px 0 ;  
+}
+.update-info .btn-update{
+    background: #0073d9;  
+    border: 1px solid #0073d9;   
+    width: 100px;  
+    color: #fff ;  
+    font-size: 16px;  
+    padding: 4px ;
+    border-radius: 2px;  
+}
+form label {
+    background: #fff;
+    border: 1px solid #0073d9;
+    font-size:  16px; 
+    padding: 5px;  
+    margin: 0 16px 0  0;  
+    width: 100px;  
+    border-radius: 4px ; ; 
+}
+form label input{
+    margin: 0 8px ; 
 }

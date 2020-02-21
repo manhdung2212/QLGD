@@ -29,35 +29,47 @@ namespace SchoolManager.Controllers
             var user = db.UserManagers.Where(x => x.Account == account && x.Password == password).FirstOrDefault();  
             if( user != null)
             {
-                var userApp = db.UserApps.Find(user.ID);  
-                if( userApp == null)
-                {
-                    userApp = new UserApp { Name = "admin" };
-                    db.UserApps.Add(userApp);
-                    db.SaveChanges();
-                   
-                }
+                var userApp = db.UserApps.Find(user.ID);
                 Session["userName"] = userApp.Name;
+                Session["userApp"] = userApp;  
                 return Json(true, JsonRequestBehavior.AllowGet);
 
 
             }
             return Json( false, JsonRequestBehavior.AllowGet);   
         }
-
+        public ActionResult UpdateInfo( int id  )
+        {
+            var model = db.UserApps.Find(id);
+            return View(model);   
+        }
+        [HttpPost]
+        public JsonResult UpdateInfo( int id , string name ,  string address,  string email ,  string phone  , DateTime birth ,  string gender , string position ,  string desc)
+        {
+            var user = db.UserApps.Find(id);
+            user.Name = name;
+            user.Email = email;
+            user.Address = address;
+            user.Phone = phone;
+            user.Birthday = birth;
+            user.Gender = gender == "male" ? true : false;
+            user.Position = position;
+            user.Description = desc;
+            db.SaveChanges();
+            Session["userApp"] = user;  
+            return Json(true , JsonRequestBehavior.AllowGet);  
+        }
         public PartialViewResult ListUser( int pageNumber , int pageSize  ,  string search)
         {
+            search = search.ToLower();  
             var data = from u in db.UserManagers
                        join userApp in db.UserApps on u.ID equals userApp.ID
+                       where u.Account.ToLower().Contains(search) || userApp.Phone.Contains(search) || userApp.Name.Contains(search)
                        select new UserViewModel
                        {
                            userApp = userApp ,  
                            userManager = u
                        };  
-            if( search.Trim() != "" )
-            {
-                data = data.Where(x => x.userApp.Name.ToLower().Contains(search.ToLower()));  
-            }
             var pageCount = data.Count() % pageSize == 0 ? data.Count() / pageSize : data.Count() / pageSize + 1;
             ViewBag.pageCount = pageCount;
             ViewBag.pageNumber = pageNumber;  
@@ -87,11 +99,6 @@ namespace SchoolManager.Controllers
                 db.UserManagers.Add(user);
                 db.SaveChanges();
                 return Json(true , JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var user = db.UserApps.Find(id);
-                var userApp = db.UserManagers.Find(id);  
             }
             return Json( false , JsonRequestBehavior.AllowGet);  
         }
@@ -137,10 +144,17 @@ namespace SchoolManager.Controllers
             smtp.Send(mes); 
         }
 
-        public JsonResult GetByID(int id)
+        public PartialViewResult GetByID(int id)
         {
-            var model = db.UserApps.Find(id);
-            return Json(model, JsonRequestBehavior.AllowGet); 
+            var data = (from u in db.UserManagers
+                       join userApp in db.UserApps on u.ID equals userApp.ID
+                       where u.ID == id 
+                       select new UserViewModel
+                       {
+                           userApp = userApp,
+                           userManager = u
+                       }).FirstOrDefault() ;
+            return PartialView(data); 
 
         }
 

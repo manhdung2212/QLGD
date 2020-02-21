@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using SchoolManager.Models;  
 namespace SchoolManager.Controllers
 {
     public class HomeController : Controller
     {
+        SchoolManagementEntities db = new SchoolManagementEntities();  
         public ActionResult Index()
         {
-            var userName = "adc";
-            if (userName == null)
+            if( Session["userApp"] == null)
             {
                 return RedirectToAction("Login", "UserApp");
+            }
+            else
+            {
+                var userApp = (UserApp)Session["userApp"];  
+                if( userApp.Email == null)
+                {
+                    return RedirectToAction("UpdateInfo", "UserApp", new { id = userApp.ID });  
+                }
             }
             return View();
         }

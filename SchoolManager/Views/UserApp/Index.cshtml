@@ -8,8 +8,7 @@
     <div class="d-flex justify-content-between data-header p-2">
         <h4 class="m-0 mt-1"> Người dùng</h4>
         <div class="d-flex justify-content-end">
-
-            <input type="text" name="searchname" value="" placeholder="Nhập tên người dùng" />
+            <input type="text" name="searchname" value="" placeholder="Nhập từ khóa" />
             <button class="btn btn-primary mx-1"> Nâng cao </button>
             <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/UserApp/GetFromUpdate' , 'add-or-edit')"> Thêm mới</button>
         </div>
@@ -35,7 +34,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-createEdit btn btn-success" onclick="AddOrEdit('formAddOrEdit' , '/UserApp/AddOrEdit' , '/UserApp/ListUser' , 'get-data')"> Thêm mới</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"> Đóng </button>
                 </div>
             </div>
 
@@ -46,7 +45,7 @@
     <script>
         var data = {
             pageNumber: 1,  
-            pageSize: 5, 
+            pageSize: 10, 
             search: ''
         }
         GetListStudent('/UserApp/ListUser', 'get-data');

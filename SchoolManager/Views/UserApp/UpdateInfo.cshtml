@@ -1,0 +1,112 @@
+﻿@model SchoolManager.Models.UserApp
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateInfor</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="update-info">
+        <p class="title"> Cập nhập thông tin </p>
+        <hr />
+        <form id="updateInfo">
+            <input type="number" name="id" value="@Model.ID" hidden readonly  />
+            <div class="row">
+                <div class="col-md-4">
+                    <p> Họ và tên </p>
+                    <input type="text" name="name" value="@Model.Name" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <p> Địa chỉ  </p>
+                    <input type="text" name="address" value="@Model.Address" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <p> Email </p>
+                    <input type="text" name="email" value="@Model.Email" class="form-control" />
+
+                </div>
+                <div class="col-md-4">
+                    <p> Phone </p>
+                    <input type="text" name="phone" value="@Model.Phone" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <p> Ngày sinh </p>
+                    <input type="date" name="birth" value="@Model.Birthday" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <p> Giới tính </p>
+                    <div class="d-flex justify-content-start">
+                        @if (Model.Gender == false)
+                        {
+                            <label for="male"> <input type="radio" name="gender" value="male" id="male" /> Nam </label>
+                            <label for="female"> <input type="radio" name="gender" value="female" id="female" checked /> Nữ  </label>
+                        }
+                        else
+                        {
+                            <label for="male"> <input type="radio" name="gender" value="male" id="male" checked /> Nam </label>
+                            <label for="female"> <input type="radio" name="gender" value="female" id="female" /> Nữ  </label>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p> Chức vụ </p>
+                    <input type="text" name="desc" class="form-control" value="@Model.Description" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <p> Mô tả bản thân </p>
+                    <textarea class="form-control" name="desc"></textarea>
+                </div>
+            </div>
+            <br />
+            <div class="row m-0">
+                <button class="btn-update" type="button" onclick="AddOrEdit('updateInfo' , '/UserApp/UpdateInfo' )"> Lưu lại </button>
+            </div>
+        </form>
+        
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="~/Common js/SchoolCommonJS.js"></script>
+    <script>
+        function AddOrEdit(idForm, url) {
+            var data = SchoolCommonJS.getFormData(idForm);  
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: "json",
+                data: JSON.stringify(data),
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+               
+                    if (res == true) {
+                        location.href = "/Home/Index";
+                    }
+                },
+                error: function () {
+
+                },
+                complete: function () {
+
+                }
+            })
+        }
+        
+
+    </script>
+</body>
+</html>

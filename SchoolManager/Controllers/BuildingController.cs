@@ -23,7 +23,7 @@ namespace SchoolManager.Controllers
             var data = db.Buildings.OrderBy(x=>x.Name);
             if (search.Trim() != "")
             {
-                data = data.Where(x => x.Name.Contains(search)).OrderBy(x=>x.Name);
+                data = data.Where(x => x.Name.Contains(search) ).OrderBy(x=>x.Name);
                 
             }
             

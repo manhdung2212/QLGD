@@ -44,3 +44,6 @@ function DefaultValueInput() {
     })
     $('input[name="id"]').val(0); 
 }
+function GetByID(id, url, classAppend) {
+    SchoolCommonJS.getById(id, url, classAppend); 
+}
