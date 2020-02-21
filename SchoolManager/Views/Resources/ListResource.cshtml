@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SchoolManager.ViewModels.ResourceJoin>
+<div class="data-body">
+    <table class="table">
+        <thead class="bg-gradient-light">
+            <tr>
+                <th> Tên CSVC  </th>
+                <th> Số lượng</th>
+                <th> Trạng thái </th>
+                <th> Tòa nhà</th>
+                <th class="d-flex justify-content-center"> Tác vụ </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @item.resource.Name </td>
+                    <td> @item.resource.Amount</td>
+                    @if (item.resource.Status == 0)
+                    {
+                        <td> Đang hoạt động</td>
+                    }
+                    else
+                    {
+                        <td> Ngừng hoạt động</td>
+                    }
+                    <td>@item.building.Name</td>
+                    <td class="d-flex justify-content-end">
+
+
+                        <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.resource.ID , '/Resources/FormCreateEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                        <button class="btn btn-detail p-0" data-toggle="modal" data-target="#myModal" type="button" onclick=" GetByID(@item.resource.ID , '/Resources/InfoDetail' , 'get-infodetail')">
+                            <i class="text-primary fas fa-info-circle"></i>
+                        </button>
+                        <button class="btn btn-delete p-0" onclick="Delete(@item.resource.ID , '/Resources/Delete', '/Resources/ListResource' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="myModal" class="modal fade" role="dialog"  >
+    <div class="modal-dialog ">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-yellow">
+                <h4 class="modal-title text-white"> Thông tin chi tiết</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="get-infodetail">
+                
+            </div>
+            <div class="modal-footer">
+               
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+     </div>
+ </div>
+        <div class="pagination">
+            @for (int i = 1; i <= ViewBag.pageCount; i++)
+            {
+                if (i == ViewBag.pageNumber)
+                {
+                    <button data-page="@i" class="active">  @i  </button>
+
+                }
+                else
+                {
+                    <button data-page="@i" onclick="Pagination( @i ,  '/Resources/ListResource' , 'get-data')">  @i  </button>
+                }
+            }
+        </div>

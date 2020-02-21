@@ -25,5 +25,6 @@ namespace SchoolManager.Models
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> CreateBy { get; set; }
         public Nullable<int> UpdateBy { get; set; }
+        public Nullable<int> Status { get; set; }
     }
 }

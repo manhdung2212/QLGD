@@ -133,6 +133,7 @@
     <Compile Include="Controllers\FacultyManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyGiangVienController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\UserAppController.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +195,7 @@
     <Compile Include="Utilities\CheckDuplicate.cs" />
     <Compile Include="ViewModels\ClassJoin.cs" />
     <Compile Include="ViewModels\LectureViewModel.cs" />
+    <Compile Include="ViewModels\ResourceJoin.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLecturerController.cs" />
   </ItemGroup>
@@ -1930,6 +1932,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\QuanLyGiangVien.js" />
+    <Content Include="Scripts\Resource.js" />
     <Content Include="Scripts\SubjectManager.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1957,7 +1960,6 @@
     <Content Include="Views\Subject\FormCreateEdit.cshtml" />
     <Content Include="Views\Subject\Index.cshtml" />
     <Content Include="Views\Subject\Listsubject.cshtml" />
-    <Content Include="Views\FacultyManager\ChitietKhoa.cshtml" />
     <Content Include="Views\FacultyManager\FormCreateEdit.cshtml" />
     <Content Include="Views\FacultyManager\Index.cshtml" />
     <Content Include="Views\FacultyManager\ListFaculty.cshtml" />
@@ -1972,6 +1974,11 @@
     <Content Include="Views\QuanLyGiangVien\GetLecture.cshtml" />
     <Content Include="Views\UserApp\ForgotPassword.cshtml" />
     <Content Include="Views\UserApp\GetFromUpdate.cshtml" />
+    <Content Include="Views\Resources\InfoDetail.cshtml" />
+    <Content Include="Views\Resources\FormCreateEdit.cshtml" />
+    <Content Include="Views\Resources\ListResource.cshtml" />
+    <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\FacultyManager\InfoDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
