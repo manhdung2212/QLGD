@@ -9,10 +9,10 @@
 
         return indexed_array;
     },
-    getByIdDataJson: function (id, url) { 
-        let data;  
+    getByIdDataJson: function (id, url) {
+        let data;
         $.ajax({
-            async:false,
+            async: false,
             url: url,
             type: "GET",
             dataType: 'json',
@@ -33,8 +33,8 @@
             }
         });
         return data;
-    }, 
-    getDataFillter: function (condition,url , classAppend ) {
+    },
+    getDataFillter: function (condition, url, classAppend) {
         $.ajax({
             url: url,
             type: "POST",
@@ -45,7 +45,7 @@
             },
             success: function (res) {
                 $('.' + classAppend + '').html('');
-                $('.' + classAppend+'').append(res); 
+                $('.' + classAppend + '').append(res);
             },
             error: function () {
 
@@ -56,7 +56,7 @@
         })
     },
     AddOrEdit: function (idForm, url_add, condition, url_getList, classAppend) {
-        let data = SchoolCommonJS.getFormData(idForm);  
+        let data = SchoolCommonJS.getFormData(idForm);
         $.ajax({
             url: url_add,
             type: 'POST',
@@ -68,8 +68,8 @@
             },
             success: function (res) {
                 if (res) {
-                    SchoolCommonJS.getDataFillter(condition, url_getList, classAppend);  
-                    
+                    SchoolCommonJS.getDataFillter(condition, url_getList, classAppend);
+
                 }
             },
             error: function () {
@@ -88,7 +88,8 @@
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa'
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -122,9 +123,9 @@
                 })
             }
         })
-       
-    }, 
-    setDataOnForm: function (id, url , classAppend) {
+
+    },
+    setDataOnForm: function (id, url, classAppend) {
         $.ajax({
             url: url,
             type: "POST",
@@ -150,6 +151,32 @@
         return Object.keys(obj).map(function (key) {
             return [key.toLowerCase(), obj[key]]
         })
+    },
+    getById: function (id, url, classAppend) {
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: 'html',
+            data: {
+                id: id
+            },
+            beforeSend: function () {
+
+            },
+            success: function (res) {
+                $('.' + classAppend + '').html('');
+                $('.' + classAppend + '').append(res);
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
+            }
+        });
     }
-    
-}
+};
+
+
+
+

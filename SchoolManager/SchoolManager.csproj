@@ -133,67 +133,69 @@
     <Compile Include="Controllers\FacultyManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyGiangVienController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\UserAppController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Building.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Class.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Classroom.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Faculty.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Lecturer.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Resource.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ResourcesManagement.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RoomManagement.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SchoolManager.Context.cs">
+    <Compile Include="Models\Schoolmanager.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolManager.Context.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SchoolManager.cs">
+    <Compile Include="Models\Schoolmanager.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SchoolManager.Designer.cs">
+    <Compile Include="Models\Schoolmanager.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolManager.edmx</DependentUpon>
+      <DependentUpon>Schoolmanager.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Subject.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TimeManagement.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserApp.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserManager.cs">
-      <DependentUpon>SchoolManager.tt</DependentUpon>
+      <DependentUpon>Schoolmanager.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CheckContains.cs" />
     <Compile Include="Utilities\CheckDuplicate.cs" />
     <Compile Include="ViewModels\ClassJoin.cs" />
     <Compile Include="ViewModels\LectureViewModel.cs" />
+    <Compile Include="ViewModels\ResourceJoin.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLecturerController.cs" />
   </ItemGroup>
@@ -1817,15 +1819,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\SchoolManager.Context.tt">
+    <Content Include="Models\Schoolmanager.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SchoolManager.edmx</DependentUpon>
-      <LastGenOutput>SchoolManager.Context.cs</LastGenOutput>
+      <DependentUpon>Schoolmanager.edmx</DependentUpon>
+      <LastGenOutput>Schoolmanager.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SchoolManager.tt">
+    <Content Include="Models\Schoolmanager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SchoolManager.edmx</DependentUpon>
-      <LastGenOutput>SchoolManager.cs</LastGenOutput>
+      <DependentUpon>Schoolmanager.edmx</DependentUpon>
+      <LastGenOutput>Schoolmanager.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\AddOrEdit.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1908,12 +1910,12 @@
     <Content Include="Content\plugins\summernote\summernote.js.map" />
     <Content Include="Content\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss" />
     <Content Include="Content\plugins\toastr\toastr.js.map" />
-    <EntityDeploy Include="Models\SchoolManager.edmx">
+    <EntityDeploy Include="Models\Schoolmanager.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SchoolManager.Designer.cs</LastGenOutput>
+      <LastGenOutput>Schoolmanager.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SchoolManager.edmx.diagram">
-      <DependentUpon>SchoolManager.edmx</DependentUpon>
+    <Content Include="Models\Schoolmanager.edmx.diagram">
+      <DependentUpon>Schoolmanager.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Building.js" />
@@ -1930,6 +1932,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\QuanLyGiangVien.js" />
+    <Content Include="Scripts\Resource.js" />
     <Content Include="Scripts\SubjectManager.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1972,9 +1975,14 @@
     <Content Include="Views\QuanLyGiangVien\GetLecture.cshtml" />
     <Content Include="Views\UserApp\ForgotPassword.cshtml" />
     <Content Include="Views\UserApp\GetFromUpdate.cshtml" />
+    <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Resources\FormCreateEdit.cshtml" />
+    <Content Include="Views\Resources\InfoDetail.cshtml" />
+    <Content Include="Views\Resources\ListResource.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,46 +1,144 @@
-﻿
-<div class="add-or-edit">
-    <div class="row">
-        <div class="col-md-3">
-            <label>Mã lớp</label>
-            <input type="text" value="" name="code" class="form-control" />
-            <div class="error"></div>
+﻿<form action="/" method="post" id="formAddOrEdit">
+    @if (ViewBag.data == null)
+    {
+        <input type="number" name="id" value="0" class="form-control hidden" readonly hidden />
+        <div class="row m-0">
+            <div class="col-md-3">
+                <label>Mã lớp</label>
+                <input type="text" value="" name="code" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Tên lớp</label>
+                <input type="text" value="" name="name" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Tên môn học</label>
+                <select id="subjectid" name="subjectid" class="form-control" value="">
+
+                    @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
+                    {
+                        <option value="@item.ID" selected>@item.Name</option>
+                        
+                    }
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Tên giảng viên</label>
+                <select id="lecturerid" name="lecturerid" class="form-control" value="">
+                    @foreach (var item in (ViewBag.listLecturer as IEnumerable<SchoolManager.Models.Lecturer>))
+                    {
+                       
+                        <option value="@item.ID" selected>@item.Name</option>
+                        
+                    }
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Trạng thái</label>
+                <select id="status" name="status" class="form-control">
+                    <option value="1">Đang nghỉ</option>
+                    <option value="2">Đang học</option>
+
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Ghi chú</label>
+                <textarea id="node" name="node" value="" class="form-control"></textarea>
+                <div class="error"></div>
+            </div>
+
+
+            <br />
+           
+
         </div>
-        <div class="col-md-3">
-            <label>Tên lớp</label>
-            <input type="text" value="" name="name" class="form-control" />
-            <div class="error"></div>
+    }
+    else
+    {
+        <input type="number" name="id" value="@ViewBag.data.ID" class="form-control hidden" readonly hidden />
+        <div class="row m-0">
+            <div class="col-md-3">
+                <label>Mã:</label>
+                <input type="text" value="@ViewBag.data.Code" name="code" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Tên lớp:</label>
+                <input type="text" value="@ViewBag.data.Name" name="name" class="form-control" />
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Tên môn học</label>
+                <select id="subjectid" class="form-control" name="subjectid" value="@ViewBag.data.SubjectID">
+
+                    @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
+                    {
+                        if (item.ID == ViewBag.data.SubjectID)
+                        {
+                            <option value="@item.ID" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                        <option value="@item.ID">@item.Name</option>
+                        }
+                    }
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Tên giảng viên</label>
+                <select id="lecturerid" class="form-control" name="lecturerid" value="@ViewBag.data.LecturerID">
+                    @foreach (var item in (ViewBag.listLecturer as IEnumerable<SchoolManager.Models.Lecturer>))
+                    {
+                        if (item.ID == ViewBag.data.LecturerID)
+                        {
+                        <option value="@item.ID" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                        <option value="@item.ID">@item.Name</option>
+                        }
+                    }
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="col-md-3">
+                <label>Ghi chú</label>
+                <input type="text" value="@ViewBag.data.Node" name="node" class="form-control" />
+                <div class="error"></div>
+            </div>
+
+            <div class="col-md-3">
+                <label>Trạng thái</label>
+                <select class="form-control status" value="0" name="status">
+                    @if (ViewBag.data.Status == 0)
+                    {
+                        <option value="0" selected> Đang nghỉ </option>
+                        <option value="1"> Đang học </option>
+                    }
+                    else
+                    {
+                        <option value="0"> Đang nghỉ </option>
+                        <option value="1" selected> Đang học </option>
+                    }
+
+                </select>
+                <div class="error"></div>
+            </div>
+            
         </div>
-        <div class="col-md-3">
-            <label>Tên môn học</label>
-            <select id="subjectid" class="form-control" value="1">
-                @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            </select>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Tên giảng viên</label>
-            <select id="lecturerid" class="form-control" value="1">
-                @foreach (var item in (ViewBag.listLecturer as IEnumerable<SchoolManager.Models.Lecturer>))
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            </select>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Ghi chú</label>
-            <textarea id="node" value="" class="form-control"></textarea>
-            <div class="error"></div>
-        </div>
-        
-    </div>
-    <br />
-    <button class="btn btn-primary btn-createEdit">Thêm mới</button>
-    <button class="btn-update btn btn-success">Cập nhật</button>
-</div>
+    }
+
+</form>
+
+
+
+
+
 
 

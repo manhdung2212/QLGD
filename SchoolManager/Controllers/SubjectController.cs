@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SchoolManager.Models;
-
+using SchoolManager.ViewModels;
 namespace SchoolManager.Controllers
 {
     public class SubjectController : Controller
