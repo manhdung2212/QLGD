@@ -25,17 +25,17 @@ namespace SchoolManager.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Building> Buildings { get; set; }
-        public virtual DbSet<Class> Classes { get; set; }
-        public virtual DbSet<Classroom> Classrooms { get; set; }
-        public virtual DbSet<Faculty> Faculties { get; set; }
-        public virtual DbSet<Lecturer> Lecturers { get; set; }
-        public virtual DbSet<Resource> Resources { get; set; }
-        public virtual DbSet<ResourcesManagement> ResourcesManagements { get; set; }
-        public virtual DbSet<RoomManagement> RoomManagements { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<TimeManagement> TimeManagements { get; set; }
-        public virtual DbSet<UserApp> UserApps { get; set; }
-        public virtual DbSet<UserManager> UserManagers { get; set; }
+        public virtual DbSet<Building> Building { get; set; }
+        public virtual DbSet<Class> Class { get; set; }
+        public virtual DbSet<Classroom> Classroom { get; set; }
+        public virtual DbSet<Faculty> Faculty { get; set; }
+        public virtual DbSet<Lecturer> Lecturer { get; set; }
+        public virtual DbSet<Resources> Resources { get; set; }
+        public virtual DbSet<ResourcesManagement> ResourcesManagement { get; set; }
+        public virtual DbSet<RoomManagement> RoomManagement { get; set; }
+        public virtual DbSet<Subjects> Subjects { get; set; }
+        public virtual DbSet<TimeManagement> TimeManagement { get; set; }
+        public virtual DbSet<UserApp> UserApp { get; set; }
+        public virtual DbSet<UserManager> UserManager { get; set; }
     }
 }

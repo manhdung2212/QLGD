@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="user-app">
+    <div class="d-flex justify-content-between data-header p-2">
+        <h4 class="m-0 mt-1">  Tòa nhà </h4>
+        <div class="d-flex justify-content-end">
+
+            <input type="text" name="searchname" value="" placeholder="Nhập tên tòa nhà" />
+            <button class="btn btn-primary mx-1" data-toggle="collapse" data-target="#demo"> Nâng cao </button>
+            <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/ResourcesManagement/FormCreateEdit' , 'add-or-edit')"> Thêm mới</button>
+        </div>
+    </div>
+    <div id="demo" class="collapse">
+        <div class="row mx-0 my-2">
+            <div class="col-md-2">
+                <select class="form-control searchStatus">
+                    <option value="-1">Trạng Thái(Tất cả)</option>
+                    <option value="0">Chưa Trả</option>
+                    <option value="1">Đã Trả</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="get-data m-2">
+
+    </div>
+    <hr />
+    <div id="modalAdd" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content add-or-edit">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/SubjectManager.js"></script>
+
+    <script>
+        var data = {
+            pageNumber: 1,
+            pageSize: 5,
+            search: '',
+            Status: -1,
+
+        }
+        GetListStudent('/ResourcesManagement/ListHistory', 'get-data');
+        Search('/ResourcesManagement/ListHistory', 'get-data');
+        FillByStatus('/ResourcesManagement/ListHistory', 'get-data');
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

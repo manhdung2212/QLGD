@@ -25,13 +25,9 @@ function Search(url, classAppend) {
      
 }
 function EditClick(id, url, classAppend) {
-    $('.btn-createEdit').html('Cập nhập'); 
-
     SchoolCommonJS.setDataOnForm(id, url, classAppend); 
 }
 function AddClick(id, url, classAppend) {
-    $('.btn-createEdit').html('Thêm mới');
-
     SchoolCommonJS.setDataOnForm(id, url, classAppend);
 }
 function AddOrEdit(idForm, url_add, url_getList, classAppend) {

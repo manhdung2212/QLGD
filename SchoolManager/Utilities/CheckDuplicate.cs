@@ -10,7 +10,7 @@ namespace SchoolManager.Utilities
         private static SchoolManagementEntities  db = new SchoolManagementEntities();  
         public static bool CheckEmail( string email )
         {
-            return db.UserApps.Where(x => x.Email == email).Count() == 0;
+            return db.UserApp.Where(x => x.Email == email).Count() == 0;
         }
     }
 }

@@ -12,18 +12,15 @@ namespace SchoolManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Resource
+    public partial class Subjects
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Amount { get; set; }
-        public Nullable<int> Broken { get; set; }
         public string Node { get; set; }
-        public Nullable<int> BuildOrRoom { get; set; }
-        public Nullable<int> IDBuildOrRoom { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> CreateBy { get; set; }
         public Nullable<int> UpdateBy { get; set; }
+        public Nullable<int> Status { get; set; }
     }
 }

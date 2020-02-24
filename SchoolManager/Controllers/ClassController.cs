@@ -14,15 +14,17 @@ namespace SchoolManager.Controllers
         public ActionResult Index()
         {
             ViewBag.listSubject = db.Subjects.ToList();
-            ViewBag.listLecturer = db.Lecturers.ToList();
+            ViewBag.listLecturer = db.Lecturer.ToList();
             return View();
         }
         [HttpPost]
-        public PartialViewResult ListClass(int pageNumber, int pageSize, string search,int subjectID,string searchCode)
+        public PartialViewResult ListClass(int pageNumber, int pageSize, string search,int subjectID,string searchcode)
         {
-            var data=from s in db.Classes
+            search = search.ToLower();
+            var data=from s in db.Class
                       join c in db.Subjects on s.SubjectID equals c.ID
-                      join z in db.Lecturers on s.LecturerID equals z.ID
+                      join z in db.Lecturer on s.LecturerID equals z.ID
+                      where s.Code.ToLower().Contains(search)||s.Name.ToLower().Contains(search)||c.Name.ToLower().Contains(search)||z.Name.ToLower().Contains(search)
                       select new ClassJoin
                       {
                           ID = s.ID,
@@ -39,17 +41,13 @@ namespace SchoolManager.Controllers
                           SubjectName=c.Name,
                           LecturerName=z.Name,
                       };
-            if (search.Trim() != "")
-            {
-                data = data.Where(x => x.Name.Contains(search)).OrderBy(x => x.Name);
-            }
-            if (searchCode.Trim() != "")
-            {
-                data = data.Where(x => x.Code.Contains(searchCode)).OrderBy(x => x.Code);
-            }
             if (subjectID != 0)
             {
                 data = data.Where(x => x.SubjectID == subjectID);
+            }
+            if( searchcode != "")
+            {
+                data = data.Where(x => x.Code.ToLower().Contains(searchcode.ToLower()));  
             }
             var pageCount = data.Count() % pageSize == 0 ? data.Count() / pageSize : data.Count() / pageSize + 1;
             if (pageNumber <= pageCount)
@@ -64,55 +62,58 @@ namespace SchoolManager.Controllers
 
 
         }
-        public PartialViewResult FormCreateEdit()
+        public PartialViewResult FormCreateEdit(int id)
         {
+            ViewBag.data = db.Class.Find(id);
             ViewBag.listSubject = db.Subjects.ToList();
-            ViewBag.listLecturer = db.Lecturers.ToList();
+            ViewBag.listLecturer = db.Lecturer.ToList();
             return PartialView();
         }
         [HttpPost]
         public PartialViewResult InfoDetail(int id)
         {
-            Class cl = db.Classes.Find(id);
+            Class cl = db.Class.Find(id);
             return PartialView(cl);
         }
-       
+
+
 
         [HttpPost]
-        public JsonResult Create(string code, string name, int subjectID, int lecturerID, string node)
+        public JsonResult AddOrEdit(int id, string name,string code,string node,int subjectid,int lecturerid,int status)
         {
-            Class cl = new Class() ;
-            cl.Code = code;
-            cl.Name = name;
-            cl.SubjectID = subjectID;
-            cl.LecturerID = lecturerID;
-            cl.Node = node;
-            cl.CreateDate = DateTime.Now;
-            
-            db.Classes.Add(cl);
-            db.SaveChanges();
-            return Json(true);
-        }
-        [HttpPost]
-        public JsonResult Update(int id, string code, string name, int subjectID, int lecturerID, string node)
-        {
-            var cl = db.Classes.Find(id);
-            cl.Code = code;
-            cl.Name = name;
-            cl.SubjectID = subjectID;
-            cl.LecturerID = lecturerID;
-            cl.Node = node;
+            if (id == 0)
+            {
+                Class cl = new Class();
+                cl.Node = node;
+                cl.Name = name;
+                cl.Status = status;
+                cl.Code = code;
+                cl.SubjectID = subjectid;
+                cl.LecturerID = lecturerid;
+                cl.CreateDate = DateTime.Now;
 
-            cl.UpdateDate = DateTime.Now;
-            
+                db.Class.Add(cl);
+            }
+            else
+            {
+                var cl = db.Class.Find(id);
+                cl.Node = node;
+                cl.Name = name;
+                cl.Status = status;
+                cl.Code = code;
+                cl.SubjectID = subjectid;
+                cl.LecturerID = lecturerid;
+                cl.UpdateDate = DateTime.Now;
+
+            }
             db.SaveChanges();
-            return Json(true);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var cl = db.Classes.Find(id);
-            db.Classes.Remove(cl);
+            var cl = db.Class.Find(id);
+            db.Class.Remove(cl);
             db.SaveChanges();
             return Json(true);
         }

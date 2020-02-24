@@ -23,16 +23,39 @@
                     {
                         <td> Ngừng hoạt động</td>
                     }
-                    <td class="d-flex justify-content-end">
-                        <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.ID , '/Building/FormCreateEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
-                        <button class="btn btn-delete p-0" onclick="Delete(@item.ID , '/Building/Delete', '/Building/ListBuilding' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
-                    </td>
+                <td class="d-flex justify-content-end">
+                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.ID , '/Building/FormCreateEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn btn-info p-0" data-toggle="modal" data-target="#modalDetails" type="button" onclick="GetByID(@item.ID,'/Building/InfoDetail','infoDetails')"><i class="fas fa-info-circle text-primary"></i> </button>
+
+                    <button class="btn btn-delete p-0" onclick="Delete(@item.ID , '/Building/Delete', '/Building/ListBuilding' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+<div id="modalDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-yellow">
+                <h4 class="modal-title text-white"> Thông tin chi tiết</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="infoDetails">
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="pagination">
     @for (int i = 1; i <= ViewBag.pageCount; i++)
     {

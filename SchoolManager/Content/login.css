@@ -50,10 +50,9 @@ button .spinner-border{
     border: 2px dashed #fff !important ;  
 }
 .update-info{
-    max-width: 1000px; 
-    margin: 50px auto ;  
+    max-width: 100rem; 
     background: #fff ;  
-    padding: 20px 50px ;   
+    padding: 1.4rem ;   
     box-shadow: 0 0 2px #0073d9; 
     border: 1px solid #0073d9; 
 }
@@ -66,7 +65,8 @@ button .spinner-border{
 }
 .update-info hr{
     width: 300px ; 
-    border: 1px solid #0073d9;  
+    border: none;  
+    border-bottom: 2px solid #0073d9;  
     margin: 0 0 32px 0 ;  
 }
 .update-info .btn-update{
@@ -85,8 +85,12 @@ form label {
     padding: 5px;  
     margin: 0 16px 0  0;  
     width: 100px;  
-    border-radius: 4px ; ; 
+    border-radius: 4px ; 
 }
 form label input{
     margin: 0 8px ; 
+}
+body .modal-ku {
+    max-width: 1200px ;
+    margin: 100px auto;  
 }

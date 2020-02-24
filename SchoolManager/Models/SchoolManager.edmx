@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Building">
           <Key>
             <PropertyRef Name="ID" />
@@ -95,6 +95,7 @@
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="CreateBy" Type="int" />
           <Property Name="UpdateBy" Type="int" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="ResourcesManagement">
           <Key>
@@ -203,7 +204,8 @@
           <EntitySet Name="UserApp" EntityType="Self.UserApp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserManager" EntityType="Self.UserManager" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -282,7 +284,7 @@
           <Property Name="UpdateBy" Type="Int32" />
           <Property Name="Status" Type="Int32" />
         </EntityType>
-        <EntityType Name="Resource">
+        <EntityType Name="Resources">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -297,6 +299,7 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="CreateBy" Type="Int32" />
           <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
         </EntityType>
         <EntityType Name="ResourcesManagement">
           <Key>
@@ -330,7 +333,7 @@
           <Property Name="UpdateBy" Type="Int32" />
           <Property Name="Status" Type="Int32" />
         </EntityType>
-        <EntityType Name="Subject">
+        <EntityType Name="Subjects">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -392,18 +395,18 @@
           <Property Name="DateLogin" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityContainer Name="SchoolManagementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Buildings" EntityType="Self.Building" />
-          <EntitySet Name="Classes" EntityType="Self.Class" />
-          <EntitySet Name="Classrooms" EntityType="Self.Classroom" />
-          <EntitySet Name="Faculties" EntityType="Self.Faculty" />
-          <EntitySet Name="Lecturers" EntityType="Self.Lecturer" />
-          <EntitySet Name="Resources" EntityType="Self.Resource" />
-          <EntitySet Name="ResourcesManagements" EntityType="Self.ResourcesManagement" />
-          <EntitySet Name="RoomManagements" EntityType="Self.RoomManagement" />
-          <EntitySet Name="Subjects" EntityType="Self.Subject" />
-          <EntitySet Name="TimeManagements" EntityType="Self.TimeManagement" />
-          <EntitySet Name="UserApps" EntityType="Self.UserApp" />
-          <EntitySet Name="UserManagers" EntityType="Self.UserManager" />
+          <EntitySet Name="Building" EntityType="Self.Building" />
+          <EntitySet Name="Class" EntityType="Self.Class" />
+          <EntitySet Name="Classroom" EntityType="Self.Classroom" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" />
+          <EntitySet Name="Lecturer" EntityType="Self.Lecturer" />
+          <EntitySet Name="Resources" EntityType="Self.Resources" />
+          <EntitySet Name="ResourcesManagement" EntityType="Self.ResourcesManagement" />
+          <EntitySet Name="RoomManagement" EntityType="Self.RoomManagement" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" />
+          <EntitySet Name="TimeManagement" EntityType="Self.TimeManagement" />
+          <EntitySet Name="UserApp" EntityType="Self.UserApp" />
+          <EntitySet Name="UserManager" EntityType="Self.UserManager" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -411,7 +414,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SchoolManagementModelStoreContainer" CdmEntityContainer="SchoolManagementEntities">
-          <EntitySetMapping Name="Buildings">
+          <EntitySetMapping Name="Building">
             <EntityTypeMapping TypeName="SchoolManagementModel.Building">
               <MappingFragment StoreEntitySet="Building">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -425,7 +428,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Classes">
+          <EntitySetMapping Name="Class">
             <EntityTypeMapping TypeName="SchoolManagementModel.Class">
               <MappingFragment StoreEntitySet="Class">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -442,7 +445,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Classrooms">
+          <EntitySetMapping Name="Classroom">
             <EntityTypeMapping TypeName="SchoolManagementModel.Classroom">
               <MappingFragment StoreEntitySet="Classroom">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -457,7 +460,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Faculties">
+          <EntitySetMapping Name="Faculty">
             <EntityTypeMapping TypeName="SchoolManagementModel.Faculty">
               <MappingFragment StoreEntitySet="Faculty">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -471,7 +474,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lecturers">
+          <EntitySetMapping Name="Lecturer">
             <EntityTypeMapping TypeName="SchoolManagementModel.Lecturer">
               <MappingFragment StoreEntitySet="Lecturer">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -492,7 +495,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Resources">
-            <EntityTypeMapping TypeName="SchoolManagementModel.Resource">
+            <EntityTypeMapping TypeName="SchoolManagementModel.Resources">
               <MappingFragment StoreEntitySet="Resources">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -505,10 +508,11 @@
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ResourcesManagements">
+          <EntitySetMapping Name="ResourcesManagement">
             <EntityTypeMapping TypeName="SchoolManagementModel.ResourcesManagement">
               <MappingFragment StoreEntitySet="ResourcesManagement">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -525,7 +529,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RoomManagements">
+          <EntitySetMapping Name="RoomManagement">
             <EntityTypeMapping TypeName="SchoolManagementModel.RoomManagement">
               <MappingFragment StoreEntitySet="RoomManagement">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -543,7 +547,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
-            <EntityTypeMapping TypeName="SchoolManagementModel.Subject">
+            <EntityTypeMapping TypeName="SchoolManagementModel.Subjects">
               <MappingFragment StoreEntitySet="Subjects">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -556,7 +560,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TimeManagements">
+          <EntitySetMapping Name="TimeManagement">
             <EntityTypeMapping TypeName="SchoolManagementModel.TimeManagement">
               <MappingFragment StoreEntitySet="TimeManagement">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -577,7 +581,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserApps">
+          <EntitySetMapping Name="UserApp">
             <EntityTypeMapping TypeName="SchoolManagementModel.UserApp">
               <MappingFragment StoreEntitySet="UserApp">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -597,7 +601,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserManagers">
+          <EntitySetMapping Name="UserManager">
             <EntityTypeMapping TypeName="SchoolManagementModel.UserManager">
               <MappingFragment StoreEntitySet="UserManager">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -621,7 +625,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -14,7 +14,6 @@
         <div class="d-flex justify-content-end">
 
             <input type="text" name="searchname" value="" placeholder="Nhập tên tòa nhà" />
-            <button class="btn btn-primary mx-1"> Nâng cao </button>
             <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/Building/FormCreateEdit' , 'add-or-edit')"> Thêm mới</button>
         </div>
     </div>
@@ -26,21 +25,8 @@
         <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-green">
-                    <h4 class="modal-title text-white"> Cập nhập thông tin</h4>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="add-or-edit">
-
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-createEdit btn btn-success" onclick="AddOrEdit('formAddOrEdit' , '/Building/AddOrEdit' , '/Building/ListBuilding' , 'get-data')"> Thêm mới</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            <div class="modal-content add-or-edit">
+               
             </div>
 
         </div>

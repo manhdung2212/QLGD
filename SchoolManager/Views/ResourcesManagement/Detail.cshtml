@@ -1,0 +1,81 @@
+﻿@model SchoolManager.Models.ResourcesManagement
+
+<h4>Detail</h4>
+<table class="table table-striped">
+    <tr>
+        <th>ID : </th>
+        <td>@Model.ID</td>
+    </tr>
+
+    <tr>
+        <th>Name Lecturer: </th>
+        @foreach (var item in ViewBag.nameLecturer as IEnumerable<SchoolManager.Models.Lecturer>)
+        {
+            if (item.ID == Model.IDLecturer)
+            {
+                <td>@item.Name</td>
+            }
+        }
+
+    </tr>
+
+    <tr>
+        <th>Name Resources: </th>
+        @foreach (var item in ViewBag.nameResources as IEnumerable<SchoolManager.Models.Resources>)
+        {
+            if (item.ID == Model.ResourcesID)
+            {
+                <td>@item.Name</td>
+            }
+        }
+
+    </tr>
+
+    <tr>
+        <th>Time Take : </th>
+        <td>@Model.TimeTake</td>
+    </tr>
+
+    <tr>
+        <th>Time Give : </th>
+        <td>@Model.TimeGive</td>
+    </tr>
+
+    <tr>
+        <th>Node : </th>
+        <td>@Model.Node</td>
+    </tr>
+
+    <tr>
+        <th>CreateDate : </th>
+        <td>@Model.CreateDate</td>
+    </tr>
+
+    <tr>
+        <th>UpdateDate : </th>
+        <td>@Model.UpdateDate</td>
+    </tr>
+
+    <tr>
+        <th>CreateBy : </th>
+        <td>@Model.CreateBy</td>
+    </tr>
+
+    <tr>
+        <th>UpdateBy : </th>
+        <td>@Model.UpdateBy</td>
+    </tr>
+
+    <tr>
+        <th>Status : </th>
+        @if (Model.Status == 1)
+        {
+            <td>Đã Trả</td>
+        }
+        else
+        {
+            <td>Chưa Trả</td>
+        }
+    </tr>
+</table>
+

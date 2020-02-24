@@ -26,10 +26,10 @@ namespace SchoolManager.Controllers
         [HttpPost]
         public JsonResult Login( string account , string password)
         {
-            var user = db.UserManagers.Where(x => x.Account == account && x.Password == password).FirstOrDefault();  
+            var user = db.UserManager.Where(x => x.Account == account && x.Password == password).FirstOrDefault();  
             if( user != null)
             {
-                var userApp = db.UserApps.Find(user.ID);
+                var userApp = db.UserApp.Find(user.ID);
                 Session["userName"] = userApp.Name;
                 Session["userApp"] = userApp;  
                 return Json(true, JsonRequestBehavior.AllowGet);
@@ -40,13 +40,13 @@ namespace SchoolManager.Controllers
         }
         public ActionResult UpdateInfo( int id  )
         {
-            var model = db.UserApps.Find(id);
+            var model = db.UserApp.Find(id);
             return View(model);   
         }
         [HttpPost]
         public JsonResult UpdateInfo( int id , string name ,  string address,  string email ,  string phone  , DateTime birth ,  string gender , string position ,  string desc)
         {
-            var user = db.UserApps.Find(id);
+            var user = db.UserApp.Find(id);
             user.Name = name;
             user.Email = email;
             user.Address = address;
@@ -62,8 +62,8 @@ namespace SchoolManager.Controllers
         public PartialViewResult ListUser( int pageNumber , int pageSize  ,  string search)
         {
             search = search.ToLower();  
-            var data = from u in db.UserManagers
-                       join userApp in db.UserApps on u.ID equals userApp.ID
+            var data = from u in db.UserManager
+                       join userApp in db.UserApp on u.ID equals userApp.ID
                        where u.Account.ToLower().Contains(search) || userApp.Phone.Contains(search) || userApp.Name.Contains(search)
                        select new UserViewModel
                        {
@@ -95,8 +95,8 @@ namespace SchoolManager.Controllers
             {
                 UserManager user = new UserManager { Account = account , Password = password, DateLogin = DateTime.Now };
                 UserApp userApp = new UserApp { Name = name , CreateBy  = userName.ToString() , UpdateBy = userName.ToString() , CreateDate = DateTime.Now , UpdateDate = DateTime.Now , Status = 0  };
-                db.UserApps.Add(userApp); 
-                db.UserManagers.Add(user);
+                db.UserApp.Add(userApp); 
+                db.UserManager.Add(user);
                 db.SaveChanges();
                 return Json(true , JsonRequestBehavior.AllowGet);
             }
@@ -105,10 +105,10 @@ namespace SchoolManager.Controllers
         [HttpPost]
         public JsonResult Delete( int id)
         {
-            var model = db.UserManagers.Find(id);
-            if (model != null) db.UserManagers.Remove(model);
-            var data = db.UserApps.Find(id);
-            if (data != null) db.UserApps.Remove(data);
+            var model = db.UserManager.Find(id);
+            if (model != null) db.UserManager.Remove(model);
+            var data = db.UserApp.Find(id);
+            if (data != null) db.UserApp.Remove(data);
             db.SaveChanges(); 
             return Json(true); 
         }
@@ -146,8 +146,8 @@ namespace SchoolManager.Controllers
 
         public PartialViewResult GetByID(int id)
         {
-            var data = (from u in db.UserManagers
-                       join userApp in db.UserApps on u.ID equals userApp.ID
+            var data = (from u in db.UserManager
+                       join userApp in db.UserApp on u.ID equals userApp.ID
                        where u.ID == id 
                        select new UserViewModel
                        {
@@ -161,8 +161,8 @@ namespace SchoolManager.Controllers
         [HttpPost]
         public PartialViewResult GetFromUpdate( int id )
         {
-            var data = (from u in db.UserManagers
-                        join userApp in db.UserApps on u.ID equals userApp.ID
+            var data = (from u in db.UserManager
+                        join userApp in db.UserApp on u.ID equals userApp.ID
                         where u.ID == id
                         select new UserViewModel
                         {

@@ -29,11 +29,10 @@
                     {
                         <td> Ngừng hoạt động</td>
                     }
-                <td class="d-flex justify-content-end">
-                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.userApp.ID , '/UserApp/GetFromUpdate' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
-                    <button class="btn p-0" data-toggle="modal" data-target="#modalDetails" type="button" onclick="GetByID( @item.userApp.ID , '/UserApp/GetByID' ,'infoDetails' )">  <i class="fas fa-info-circle text-primary"></i></button>
-                    <button class="btn btn-delete p-0" onclick="Delete(@item.userApp.ID , '/UserApp/Delete', '/UserApp/ListUser' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
-                </td>
+                    <td class="d-flex justify-content-end">
+                        <button class="btn p-0" data-toggle="modal" data-target="#modalDetails" type="button" onclick="GetByID( @item.userApp.ID , '/UserApp/GetByID' ,'infoDetails' )">  <i class="fas fa-info-circle text-primary"></i></button>
+                        <button class="btn btn-delete p-0" onclick="Delete(@item.userApp.ID , '/UserApp/Delete', '/UserApp/ListUser' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -133,6 +133,8 @@
     <Compile Include="Controllers\FacultyManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyGiangVienController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\ResourcesManagementController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\UserAppController.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,7 +155,7 @@
     <Compile Include="Models\Lecturer.cs">
       <DependentUpon>SchoolManager.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Resource.cs">
+    <Compile Include="Models\Resources.cs">
       <DependentUpon>SchoolManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ResourcesManagement.cs">
@@ -177,7 +179,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SchoolManager.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Subject.cs">
+    <Compile Include="Models\Subjects.cs">
       <DependentUpon>SchoolManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TimeManagement.cs">
@@ -194,8 +196,10 @@
     <Compile Include="Utilities\CheckDuplicate.cs" />
     <Compile Include="ViewModels\ClassJoin.cs" />
     <Compile Include="ViewModels\LectureViewModel.cs" />
+    <Compile Include="ViewModels\ResourceJoin.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLecturerController.cs" />
+    <Compile Include="ViewModels\ViewResourceManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -1919,6 +1923,7 @@
     <Content Include="Scripts\Building.js" />
     <Content Include="Scripts\Class.js" />
     <Content Include="Scripts\Faculty.js" />
+    <Content Include="Scripts\HistoryManager.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -1930,6 +1935,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\QuanLyGiangVien.js" />
+    <Content Include="Scripts\Resource.js" />
     <Content Include="Scripts\SubjectManager.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1974,6 +1980,15 @@
     <Content Include="Views\UserApp\GetFromUpdate.cshtml" />
     <Content Include="Views\UserApp\GetByID.cshtml" />
     <Content Include="Views\UserApp\UpdateInfo.cshtml" />
+    <Content Include="Views\Resources\FormCreateEdit.cshtml" />
+    <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Resources\InfoDetail.cshtml" />
+    <Content Include="Views\Resources\ListResource.cshtml" />
+    <Content Include="Views\FacultyManager\InfoDetail.cshtml" />
+    <Content Include="Views\ResourcesManagement\Detail.cshtml" />
+    <Content Include="Views\ResourcesManagement\FormCreateEdit.cshtml" />
+    <Content Include="Views\ResourcesManagement\Index.cshtml" />
+    <Content Include="Views\ResourcesManagement\ListHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

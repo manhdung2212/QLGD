@@ -1,39 +1,66 @@
-﻿@model IEnumerable<SchoolManager.Models.Lecturer>
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <h1> Dánh sách giảng viên </h1>
-    <br />
-    <div class="row">
-        <div class="col-md-4">
-            <label>  Tên giảng viên </label>
-            <input type="text" name="searchName" value="" placeholder="Nhập từ khóa..." class="form-control" />
+    <div class="user-app">
+        <div class="d-flex justify-content-between data-header p-2">
+            <h4 class="m-0 mt-1">  Người dùng </h4>
+            <div class="d-flex justify-content-end">
+
+                <input type="text" name="searchname" value="" placeholder="Nhập tên giảng viên cần tìm kiếm" />
+                <button href="#demo" class="btn btn-primary mx-1" data-toggle="collapse" onchange="FilterBySubject()"> Nâng cao </button>
+                <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/QuanLyGiangVien/FormCreateAndEdit' , 'add-or-edit')"> Thêm mới</button>
+            </div>
         </div>
-        <div class="col-md-4">
-            <label> Tên khoa</label>
-            <select class="subjectID form-control">
-                <option value="0"> Tất cả các khoa</option>
-                @foreach (var item in ViewBag.ListFaculty as IEnumerable<SchoolManager.Models.Faculty>)
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            </select>
+        <div id="demo" class="collapse">
+            <div class="row mx-0 my-2">
+                <div class="col-md-2">
+                    <select class="subjectID form-control" name="subjectID">
+                        <option value="0">Khoa(Tất cả)</option>
+                        @foreach (var item in ViewBag.ListFaculty as IEnumerable<SchoolManager.Models.Faculty>)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
         </div>
-    </div>
-    <hr />
-    <div class="list-lecture">
+        <div class="get-data m-2">
+
+        </div>
+        <hr />
+        <div id="modalAdd" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-ku">
+
+                <!-- Modal content-->
+                <div class="modal-content add-or-edit">
+
+                </div>
+
+            </div>
+        </div>
 
     </div>
-    <hr />
-    <div class="form-addoredit">
-        @Html.Action("FormCreateAndEdit", "QuanLyGiangVien")
-    </div>
-</div>
 
 @section scripts{
-
     <script src="~/Scripts/QuanLyGiangVien.js"></script>
+    <script>
+        var data = {
+            pageNumber: 1,
+            pageSize: 5,
+            search: '',
+            subjectID: 0,
+        }
+        GetListStudent('/QuanLyGiangVien/ListLecture', 'get-data');
+        FilterBySubject('/QuanLyGiangVien/ListLecture', 'get-data');
+        Search('/QuanLyGiangVien/ListLecture', 'get-data');
+    </script>
 }
+
+

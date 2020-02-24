@@ -14,16 +14,16 @@ namespace SchoolManager.Controllers
         // GET: QuanLyGiangVien
         public ActionResult Index()
         {
-            ViewBag.ListLecture = db.Lecturers.ToList();
-            ViewBag.ListFaculty = db.Faculties.ToList();
+            ViewBag.ListFaculty = db.Faculty.ToList();
+            ViewBag.ListLecture = db.Lecturer.ToList();
             return View();
         }
         [HttpPost]
         public PartialViewResult GetLecture(int id)
         {
 
-            var model = (from lecture in db.Lecturers
-                         join faculty in db.Faculties on lecture.FacultyID equals faculty.ID
+            var model = (from lecture in db.Lecturer
+                         join faculty in db.Faculty on lecture.FacultyID equals faculty.ID
                          select new LectureViewModel
                          {
                              lecturer = lecture,
@@ -34,8 +34,8 @@ namespace SchoolManager.Controllers
        [HttpPost]
         public PartialViewResult ListLecture (int pageSize, int pageNumber, string search, int subjectID)
         {
-            var data =  (from s in db.Lecturers
-                        join c in db.Faculties on s.FacultyID equals c.ID
+            var data =  (from s in db.Lecturer
+                        join c in db.Faculty on s.FacultyID equals c.ID
             select new ViewModelLecturer
             {
                 ID = s.ID,
@@ -63,70 +63,92 @@ namespace SchoolManager.Controllers
                 var model = data.OrderBy(x => x.name).Skip(pageSize * pageNumber - pageSize).Take(pageSize).ToList();
                 ViewBag.pageCount = pageCount;
                 ViewBag.pageNumber = pageNumber;
+                ViewBag.pageSize = pageSize;
                 return PartialView(model);
             }
             return PartialView(data.OrderBy(x => x.name).ToList());
         }
-        public PartialViewResult FormCreateAndEdit()
+        public PartialViewResult FormCreateAndEdit(int id)
         {
-            
-            ViewBag.ListFaculty = db.Faculties.ToList();
+            ViewBag.faculties = db.Faculty.ToList(); 
+            ViewBag.data = db.Lecturer.Find(id);
             return PartialView();
         }
         [HttpPost]
-        public JsonResult Create (string name, string gender, DateTime birthday, string address, string phone, string email, int FaculityID, string node)
+        public JsonResult AddOrEdit(int id, string name, string gender, DateTime birthday, string address, string phone, string email, int FaculityID, string node)
         {
-            Lecturer lecture = new Lecturer();
-            lecture.Name = name;
-            if(gender == "male")
+            if (id == 0)
             {
-                lecture.Gender = true;
+                Lecturer lecture = new Lecturer();
+                lecture.Name = name;
+                if (gender == "male")
+                {
+                    lecture.Gender = true;
+                }
+                else
+                {
+                    lecture.Gender = false;
+                }
+                lecture.Birthday = birthday;
+                lecture.Address = address;
+                lecture.Phone = phone;
+                lecture.Email = email;
+                lecture.FacultyID = FaculityID;
+                lecture.Node = node;
+                lecture.CreateDate = DateTime.Now;
+                lecture.UpdateDate = DateTime.Now;
+                db.Lecturer.Add(lecture);
             }
             else
             {
-                lecture.Gender = false;
+                var model = db.Lecturer.Where(x => x.ID == id).FirstOrDefault();
+                model.Name = name;
+                if (gender == "male")
+                {
+                    model.Gender = true;
+                }
+                else
+                {
+                    model.Gender = false;
+                }
+                model.Birthday = birthday;
+                model.Address = address;
+                model.Phone = phone;
+                model.Email = email;
+                model.FacultyID = FaculityID;
+                model.Node = node;
+                model.UpdateDate = DateTime.Now;
             }
-            lecture.Birthday = birthday;
-            lecture.Address = address;
-            lecture.Phone = phone;
-            lecture.Email = email;
-            lecture.FacultyID = FaculityID;
-            lecture.Node = node;
-            lecture.CreateDate = DateTime.Now;
-            lecture.UpdateDate = DateTime.Now;
-            db.Lecturers.Add(lecture);
             db.SaveChanges();
             return Json(true);
         }
-        [HttpPost]
-        public JsonResult Edit (int id, string name, string gender, DateTime birthday, string address, string phone, string email, int FaculityID, string node)
-        {
-            var model = db.Lecturers.Where(x => x.ID == id).FirstOrDefault();
-            model.Name = name;
-            model.Gender = (gender == "female" ? false : true);
-            model.Birthday = birthday;
-            model.Address = address;
-            model.Phone = phone;
-            model.Email = email;
-            model.FacultyID = FaculityID;
-            model.Node = node;
-            model.UpdateDate = DateTime.Now;
-            db.SaveChanges();
-            return Json(true);
-        }
+        
         [HttpPost]
         public JsonResult Delete (int id)
         {
-            var model = db.Lecturers.Where(x => x.ID == id).FirstOrDefault();
-            db.Lecturers.Remove(model);
+            var model = db.Lecturer.Where(x => x.ID == id).FirstOrDefault();
+            db.Lecturer.Remove(model);
             db.SaveChanges();
             return Json(true);
         }
-        public ActionResult Details(int id)
+        public PartialViewResult Details(int id)
         {
-            var model = db.Lecturers.Where(x => x.ID == id).FirstOrDefault();
-            ViewBag.khoa = db.Faculties.ToList();
-            return View(model);
+            var data = (from s in db.Lecturer
+                        join c in db.Faculty on s.FacultyID equals c.ID
+                        select new ViewModelLecturer
+                        {
+                            ID = s.ID,
+                            name = s.Name,
+                            Gender = s.Gender,
+                            Birthday = s.Birthday,
+                            address = s.Address,
+                            phone = s.Phone,
+                            email = s.Email,
+                            facultyID = c.ID,
+                            namefaculty = c.Name,
+                            node = s.Node,
+                        }).Where(x => x.ID == id).FirstOrDefault();
+            return PartialView(data);
         }
     }
 }

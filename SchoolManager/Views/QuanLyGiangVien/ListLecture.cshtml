@@ -1,107 +1,81 @@
 ﻿@model IEnumerable<SchoolManager.ViewModels.ViewModelLecturer>
-
 @{
-    ViewBag.Title = "ListLecture";
+    var stt = ViewBag.pageNumber * ViewBag.pageSize - ViewBag.pageSize;
 }
-@if (Model.Count() > 0)
-{
-    <div class="list-data">
-        <div class="row data-item">
-            <div class="col-md-2 d-flex justify-content-start">
-                <p class="data-title"> Họ và tên </p>
-            </div>
-            <div class="col-md-1 d-flex justify-content-start">
-                <p class="data-title"> Giới tính </p>
-            </div>
-            <div class="col-md-3 d-flex justify-content-start">
-                <p class="data-title"> Tên khoa </p>
-            </div>
-            <div class="col-md-3 d-flex justify-content-start">
-                <p class="data-title"> Email </p>
-            </div>
-            <div class="col-md-2 d-flex justify-content-start">
-                <p class="data-title"> Số điện thoại </p>
-            </div>
-            <div class="col-md-1 d-flex justify-content-end">
-            </div>
-        </div>
-        @foreach (var item in Model)
-        {
-            <div class="row data-item">
-                <div class="col-md-2 d-flex justify-content-start">
-                    <p>  @item.name</p>
-                </div>
-                <div class="col-md-1 d-flex justify-content-start">
-                    @if (item.Gender == true)
-                    {
-                        <p> Nam </p>
-                    }
-                    else
-                    {
-                        <p> Nữ</p>
-                    }
-                </div>
-                <div class="col-md-3 d-flex justify-content-start">
-                    <p> @item.namefaculty </p>
-                </div>
-                <div class="col-md-3 d-flex justify-content-start">
-                    <p> @item.email </p>
-                </div>
-                <div class="col-md-2 d-flex justify-content-start">
-                    <p> @item.phone </p>
-                </div>
-                <div class="col-md-1 d-flex justify-content-end">
-                    <button class="btn btn-fix" data-id="@item.ID" data-name="@item.name" data-gender="@item.Gender" data-birthday="@item.Birthday.Value.ToString("yyyy-MM-dd")" data-address="@item.address" data-phone="@item.phone" data-email="@item.email" data-facultyid="@item.facultyID" data-node="@item.node" title="Sửa đổi thông tin sinh viên"><i class="fas fa-edit text-success"></i></button>
-                    <button class="btn btn-delete" data-id="@item.ID" title="Xóa sinh viên"><i class="fas fa-trash-alt text-danger"></i></button>
-                    <button class="btn btn-details" data-id="@item.ID" data-toggle="modal" data-target="#myModal">  
-                        <i class="fas fa-info-circle text-primary"></i>
-                    </button>
-                </div>
-            </div>
-        }
-        <div class="modal fade" role="dialog" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header bg-gradient-yellow">
-                            <h4 class="modal-title text-white">Thông Tin Chi Tiết</h4>
-                            <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        <div class="pagination">
-            @for (int i = 1; i <= ViewBag.pageCount; i++)
+<div class="data-body">
+    <table class="table">
+        <thead class="bg-gradient-light">
+            <tr>
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Giới tính</th>
+                <th> Tên khoa </th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th class="d-flex justify-content-center"> Tác vụ </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                if (i == ViewBag.pageNumber)
+                stt++;
+            <tr>
+                <td>@stt</td>
+                <td> @item.name </td>
+                @if (item.Gender == true)
                 {
-                    <button class="active" data-page="@i">@i</button>
+                    <td>Nam</td>
                 }
                 else
                 {
-                    <button data-page="@i">@i</button>
+                    <td>Nữ</td>
                 }
+                <td>@item.namefaculty</td>
+                <td>@item.address</td>
+                <td>@item.phone</td>
+                <td>@item.email</td>
+                <td class="d-flex justify-content-end">
+                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.ID , '/QuanLyGiangVien/FormCreateAndEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn btn-delete p-0" onclick="Delete(@item.ID , '/QuanLyGiangVien/Delete', '/QuanLyGiangVien/ListLecture' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                    <button data-toggle="modal" data-target="#details" type="button" onclick="GetByID(@item.ID, '/QuanLyGiangVien/Details', 'infoDetails')"><i class="fas fa-info-circle text-info"></i></button>
+                </td>
+            </tr>
             }
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    @for (int i = 1; i <= ViewBag.pageCount; i++)
+    {
+        if (i == ViewBag.pageNumber)
+        {
+            <button data-page="@i" class="active">  @i  </button>
+
+        }
+        else
+        {
+            <button data-page="@i" onclick="Pagination( @i ,  '/QuanLyGiangVien/ListLecture' , 'get-data')">  @i  </button>
+        }
+    }
+</div>
+<div id="details" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-yellow'">
+                <h4 class="modal-title text-blue">Thông tin chi tiết</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body infoDetails">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="jumbotron">
-        <h2> Không có giảng viên nào được thêm</h2>
-    </div>
-}
 
-
+    </div>
+</div>

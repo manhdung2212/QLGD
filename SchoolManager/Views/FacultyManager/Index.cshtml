@@ -3,27 +3,38 @@
     ViewBag.Title = "Index";
 }
 
-<div class="container">
-    <h1> Quản lý khoa </h1>
-    <br />
-    <div class="row">
-        <div class="col-md-4">
-            <input type="text" name="searchName" value="" class="form-control" placeholder="Tên khoa..." />
+<div class="user-app">
+    <div class="d-flex justify-content-between data-header p-2">
+        <h4 class="m-0 mt-1">  Khoa </h4>
+        <div class="d-flex justify-content-end">
+
+            <input type="text" name="searchname" value="" placeholder="Nhập tên khoa" />
+            <button class="btn btn-primary mx-1"> Nâng cao </button>
+            <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/FacultyManager/FormCreateEdit' , 'add-or-edit')"> Thêm mới</button>
         </div>
     </div>
-    <hr />
-    <div class="list-faculty">
+    <div class="get-data m-2">
 
     </div>
     <hr />
-    <div class="create-or-edit">
-        @Html.Action("FormCreateEdit", "FacultyManager")
+    <div id="modalAdd" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content add-or-edit">
+               
+            </div>
+        </div>
     </div>
-
 </div>
-
 @section scripts{
-
-    <script src="~/Scripts/Faculty.js"></script>
-
+    <script>
+        var data = {
+            pageNumber: 1,
+            pageSize: 5,
+            search: ''
+        }
+        GetListStudent('/FacultyManager/ListFaculty', 'get-data');
+        Search('/FacultyManager/ListFaculty', 'get-data');
+    </script>
 }
+
+

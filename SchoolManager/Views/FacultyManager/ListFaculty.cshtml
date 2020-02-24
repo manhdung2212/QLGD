@@ -1,94 +1,76 @@
 ﻿@model IEnumerable<SchoolManager.Models.Faculty>
-    <div class="list-data">
-        @if (Model.Count() == 0)
-        {
-            <div class="jumbotron">
-                <h2> Chưa có khoa nào được thêm  </h2>
+<div class="data-body">
+    <table class="table">
+        <thead class="bg-gradient-light">
+            <tr>
+                <th> Tên khoa </th>
+                <th> Ghi chú </th>
+                <th> UpdateDate</th>
+                <th> Trạng thái </th>
+                <th class="d-flex justify-content-center"> Tác vụ </th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach(var item in Model)
+            {
+                <tr>
+                    <td> @item.Name </td>
+                    <td> @item.Node</td>
+                    <td> @item.UpdateDate</td>
+                    @if (item.Status == 0)
+                    {
+                        <td> Đang hoạt động</td>
+                    }
+                    else
+                    {
+                        <td> Ngừng hoạt động</td>
+                    }
+                <td class="d-flex justify-content-end">
+                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.ID , '/FacultyManager/FormCreateEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn btn-detail p-0" data-toggle="modal" data-target="#modalDetails" type="button" onclick=" GetByID(@item.ID , '/FacultyManager/InfoDetail' , 'infoDetails')">
+                        <i class="text-primary fas fa-info-circle"></i>
+                    </button>
+                    <button class="btn btn-delete p-0" onclick="Delete(@item.ID , '/FacultyManager/Delete', '/FacultyManager/ListFaculty' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" role="dialog" id="modalDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-gradient-yellow">
+                <h4 class="modal-title text-white">Thông Tin Chi Tiết</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
             </div>
+
+            <!-- Modal body -->
+            <div class="modal-body infoDetails">
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    @for (int i = 1; i <= ViewBag.pageCount; i++)
+    {
+        if (i == ViewBag.pageNumber)
+        {
+            <button data-page="@i" class="active">  @i  </button>
+
         }
         else
         {
-            <div class="row data-item">
-                <div class="col-md-3 d-flex justify-content-start">
-                    <p class="data-title"> Tên khoa </p>
-                </div>
-                <div class="col-md-4 d-flex justify-content-start">
-                    <p class="data-title"> Ghi chú </p>
-                </div>
-                <div class="col-md-3 d-flex justify-content-start">
-                    <p class="data-title"> Trạng thái </p>
-                </div>
-                <div class="col-md-2 d-flex justify-content-end">
-                </div>
-            </div>
-            foreach (var item in Model)
-            {
-                <div class="row data-item">
-                    <div class="col-md-3 d-flex justify-content-start">
-                        <p> @item.Name </p>
-                    </div>
-                    <div class="col-md-4 d-flex justify-content-start">
-                        <p> @item.Node</p>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-start">
-                        @if (item.Status == 0)
-                        {
-                            <p> Đang hoạt động </p>
-                        }
-                        else
-                        {
-                            <p> Ngừng hoạt động</p>
-                        }
-                    </div>
-                    <div class="col-md-2 d-flex justify-content-end">
-                        <button class="btn btn-edit" data-id="@item.ID" data-name="@item.Name" data-Node="@item.Node" data-Status="@item.Status" data-Createdate="@item.CreateDate.Value.ToString("yyyy-MM-dd")" data-Update="@item.UpdateDate.Value.ToString("yyyy-MM-dd")" data-Createby="@item.CreateBy" data-Updateby="@item.UpdateBy"><i class="far fa-edit text-success"></i></button>
-                        <button class="btn btn-delete" data-id="@item.ID"><i class="fas fa-trash-alt text-danger"></i></button>
-
-                        <button type="button" class="btn btn-detail" data-id="@item.ID" data-toggle="modal" data-target="#myModal">
-                            <i class="text-primary fas fa-info-circle"></i>
-                        </button>
-                    </div>
-                </div>
-            }
+            <button data-page="@i" onclick="Pagination( @i ,  '/FacultyManager/ListFaculty' , 'get-data')">  @i  </button>
         }
-
-
-        <!-- The Modal -->
-        <div class="modal fade" role="dialog" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- Modal Header -->
-                    <div class="modal-header bg-gradient-yellow">
-                        <h4 class="modal-title text-white">Thông Tin Chi Tiết</h4>
-                        <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="pagination">
-            @for (int i = 1; i <= ViewBag.pageCount; i++)
-            {
-                if (i == ViewBag.pageNumber)
-                {
-                    <button data-page="@i" class="active">@i</button>
-                }
-                else
-                {
-                    <button data-page="@i">@i</button>
-                }
-            }
-        </div>
-    </div>
+    }
+</div>

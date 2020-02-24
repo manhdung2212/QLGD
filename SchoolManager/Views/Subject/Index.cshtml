@@ -1,32 +1,49 @@
 ﻿
 @{
+    ViewBag.Title = "Home Page";
+}
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container">
+    <div class="user-app">
+        <div class="d-flex justify-content-between data-header p-2">
+            <h4 class="m-0 mt-1">  Môn Học </h4>
+            <div class="d-flex justify-content-end">
 
-        <h1>  Quản lý môn học </h1>
-        <br />
-        <div class="row">
-            <div class="col-md-4">
-                <input type="text" name="searchname" value="" class="form-control" placeholder="Tên môn học..." />
+                <input type="text" name="searchname" value="" placeholder="Nhập tên tòa nhà" />
+                <button class="btn btn-primary mx-1" > Nâng cao </button>
+                <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/Subject/FormCreateEdit' , 'add-or-edit')"> Thêm mới</button>
             </div>
         </div>
+        
+        <div class="get-data m-2">
+
+        </div>
         <hr />
-        <div class="list-subject">
+        <div id="modalAdd" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
 
+                <!-- Modal content-->
+                <div class="modal-content add-or-edit">
+                    
+                </div>
+
+            </div>
         </div>
-        <hr /> 
-        <div class="create-or-edit">
-            @Html.Action("FormCreateEdit", "Subject")
-        </div>
-
-
     </div>
-
-
 @section scripts{
-<script src="~/Scripts/SubjectManager.js"></script>
-    
-    }
+    <script>
+        var data = {
+            pageNumber: 1,
+            pageSize: 5,
+            search: ''
+        }
+        GetListStudent('/Subject/Listsubject', 'get-data');
+        Search('/Subject/Listsubject', 'get-data');
+    </script>
+}
+
+

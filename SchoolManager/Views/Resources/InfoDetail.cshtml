@@ -1,0 +1,79 @@
+﻿@model SchoolManager.Models.Resources
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Tên :</th>
+            <td>@Model.Name  </td>
+        </tr>
+
+        <tr>
+            <th>Số lượng:</th>
+            <td>@Model.Amount</td>
+        </tr>
+        <tr>
+            <th>Số lượng bị hỏng: </th>
+            <td>@Model.Broken</td>
+        </tr>
+        <tr>
+            <th>Thuộc tòa nhà hay phòng:</th>
+            @if (Model.BuildOrRoom == 1)
+            {
+                <td>Tòa nhà</td>
+            }
+            @if (Model.BuildOrRoom == 2)
+            {
+                <td>Phòng</td>
+            }
+        </tr>
+        <tr>
+            <th>Tên tòa nhà: </th>
+            @foreach (var item in ViewBag.listbuild as IEnumerable<SchoolManager.Models.Building>)
+            {
+                if (item.ID == Model.IDBuildOrRoom)
+                {
+                    <td>@item.Name</td>
+                }
+            }
+        </tr>
+        <tr>
+            <th>Ghi chú: </th>
+            <td>@Model.Node</td>
+        </tr>
+
+        <tr>
+            <th>Ngày tạo : </th>
+            <td>@Model.CreateDate</td>
+        </tr>
+        <tr>
+            <th>Ngày cập nhật: </th>
+            <td>@Model.UpdateDate</td>
+        </tr>
+        <tr>
+            <th>Người tạo : </th>
+            <td>@Model.CreateBy</td>
+        </tr>
+        <tr>
+            <th>Người cập nhật: </th>
+            <td>@Model.UpdateBy</td>
+        </tr>
+        <tr>
+            <th>Trạng thái : </th>
+            @if (Model.Status == 1)
+            {
+                <td>Đã hỏng</td>
+            }
+            @if (Model.Status == 0)
+            {
+                <td>Đang hoạt động</td>
+            }
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+
+
+

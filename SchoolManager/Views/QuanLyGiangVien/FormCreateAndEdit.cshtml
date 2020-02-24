@@ -1,63 +1,159 @@
-﻿@{
-    ViewBag.Title = "FormCreateAndEdit";  
-}
-<div class="add-or-edit">
-    <div class="row">
-        <div class="col-md-3">
-            <label>Họ và tên</label>
-            <input type="text" name="name" class="form-control" />
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Giới tính</label>
-            <div class="d-flex justify-content-start">
-                <label class="male mr-5"> <input type="radio" name="gender" id="male" value="male" checked /> Nam</label>
-                <label class="female"> <input type="radio" name="gender" id="female" value="female" /> Nữ</label>
+﻿
+<div class="update-info">
+    <div class="d-flex justify-content-between">
+        <p class="title"> Cập nhập thông tin </p>
+        <button type="button" class="close text-blue" data-dismiss="modal">&times;</button>
+    </div>
+    <hr />
+    <form id="formAddOrEdit">
+        @if (ViewBag.data == null)
+        {
+            <input type="number" name="id" value="0" readonly hidden />
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Họ và tên</p>
+                    <input type="text" value="" name="name" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Giới tính</p>
+                    <div class="d-flex justify-content-start">
+                        <label for="male"> <input type="radio" name="gender" value="male" id="male" checked /> Nam </label>
+                        <label for="female"> <input type="radio" name="gender" value="female" id="female" /> Nữ  </label>
+
+                    </div>
+
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Ngày sinh</p>
+                    <input type="date" value="" name="birthday" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Địa chỉ</p>
+                    <input type="text" value="" name="address" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Số điện thoại</p>
+                    <input type="text" value="" name="phone" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Email</p>
+                    <input type="text" value="" name="email" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Tên khoa</p>
+                    <select class="form-control" id="FaculityID" name="FaculityID">
+                        <option value="0">Chọn khoa</option>
+                        @foreach (var item in ViewBag.faculties as IEnumerable<SchoolManager.Models.Faculty>)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                    <div class="error"></div>
+                </div>
             </div>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Ngày sinh</label>
-            <input type="date" name="birthday" class="form-control" />
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Địa chỉ</label>
-            <input type="text" name="address" class="form-control" />
-            <div class="error"></div>
-        </div>
-        
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Ghi chú</p>
+                    <textarea class="form-control w-100" name="node"></textarea>
+                    <div class="error"></div>
+                </div>
+            </div>
+            <br />
+            <div class="row m-0">
+                <button class="btn-update" type="button" onclick="AddOrEdit('formAddOrEdit' , '/QuanLyGiangVien/AddOrEdit' , '/QuanLyGiangVien/ListLecture' , 'get-data')">Thêm mới</button>
+            </div>
 
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            <label>Số điện thoại</label>
-            <input type="text" name="phone" class="form-control" />
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Email</label>
-            <input type="text" name="email" class="form-control" />
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Tên khoa</label>
-            <select class="form-control" id="facultyid">
-                @foreach (var item in ViewBag.ListFaculty as IEnumerable<SchoolManager.Models.Faculty>)
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            </select>
+        }
+        else
+        {
+            <input type="number" name="id" value="@ViewBag.data.ID" readonly hidden />
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Họ và tên</p>
+                    <input type="text" value="@ViewBag.data.Name" name="name" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Giới tính</p>
+                    <div class="d-flex justify-content-start">
+                        @if (ViewBag.data.Gender == false)
+                        {
+                            <label for="male"> <input type="radio" name="gender" value="male" id="male" /> Nam </label>
+                            <label for="female"> <input type="radio" name="gender" value="female" id="female" checked /> Nữ  </label>
+                        }
+                        else
+                        {
+                            <label for="male"> <input type="radio" name="gender" value="male" id="male" checked /> Nam </label>
+                            <label for="female"> <input type="radio" name="gender" value="female" id="female" /> Nữ  </label>
+                        }
+                    </div>
+                    
 
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Ghi chú</label>
-            <input type="text" name="node" class="form-control" />
-        </div>
-    </div>
-    <br />
-    <button class="btn-add btn btn-primary">Thêm mới</button>
-    <button class="btn-edit btn btn-success"> Cập nhập</button>
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Ngày sinh</p>
+                    <input type="date" value="@ViewBag.data.Birthday" name="birthday" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Địa chỉ</p>
+                    <input type="text" value="@ViewBag.data.Address" name="address" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Số điện thoại</p>
+                    <input type="text" value="@ViewBag.data.Phone" name="phone" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Email</p>
+                    <input type="text" value="@ViewBag.data.Email" name="email" class="form-control" />
+                    <div class="error"></div>
+                </div>
+                <div class="col-md-4">
+                    <p>Tên khoa</p>
+                    <select class="form-control" id="FaculityID" name="FaculityID">
+                        <option value="0">Chọn khoa</option>
+                        @foreach (var item in ViewBag.faculties as IEnumerable<SchoolManager.Models.Faculty>)
+                        {
+                            if (ViewBag.data.FacultyID == item.ID)
+                            {
+                                <option value="@item.ID" selected>@item.Name</option>
+
+                            }
+                            else
+                            {
+                                <option value="@item.ID">@item.Name</option>
+
+                            }
+                        }
+                    </select>
+
+                    <div class="error"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Ghi chú</p>
+                    <textarea class="form-control" name="node">@ViewBag.data.Node </textarea>
+                    <div class="error"></div>
+                </div>
+            </div>
+            <br />
+            <div class="row m-0">
+                <button class="btn-update" type="button" onclick="AddOrEdit('formAddOrEdit' , '/QuanLyGiangVien/AddOrEdit' , '/QuanLyGiangVien/ListLecture' , 'get-data')"> Cập nhập </button>
+            </div>
+        }
+
+    </form>
+
 </div>
+
+

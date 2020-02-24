@@ -1,42 +1,107 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home Page";
 }
 
-<div class=" container">
-    <h1> Quản lý lớp học </h1>
-    <br />
-    <div class="row">
-        <div class="col-md-4">
-            <label>Nhập tên lớp:</label>
-            <input type="text" name="searchname" value="" placeholder="Nhập từ khóa..." class="form-control" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="user-app">
+    <div class="d-flex justify-content-between data-header p-2">
+        <h4 class="m-0 mt-1">  Lớp học </h4>
+        <div class="d-flex justify-content-end">
+            <input type="text" name="searchname" value="" placeholder="Nhập từ khóa" />
+            <button href="#demo" class="btn btn-primary mx-1" data-toggle="collapse"> Nâng cao </button>
+            <button class="btn btn-success btn-add" data-toggle="modal" data-target="#modalAdd" type="button" onclick="AddClick(0 , '/Class/FormCreateEdit' , 'add-or-edit')"> Thêm mới</button>
         </div>
-        <div class="col-md-4">
-            <label>Nhập mã lớp</label>
-            <input type="text" name="searchcode" value="" placeholder="Nhập từ khóa..." class="form-control" />
-        </div>
-        <div class="col-md-4">
-            <label>Môn học</label>
-            <select class="form-control subjectID">
-                <option value="0">Tất ca</option>
-                @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subject>))
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            </select>
+
+    </div>
+    <div id="demo" class="collapse">
+
+        <div class="row mx-0 my-2">
+            <div class="col-md-2">
+                <input type="text" name="searchcode" value="" placeholder="Mã lớp...." class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <select class="form-control subjectID">
+                    <option value="0">Môn học(Tất cả)</option>
+                    @foreach (var item in (ViewBag.listSubject as IEnumerable<SchoolManager.Models.Subjects>))
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+            </div>
         </div>
     </div>
-    
-    <hr />
-    <div class="list-class">
+    <div class="get-data m-2">
 
     </div>
     <hr />
-    <div class="form-add-edit">
-        @Html.Action("FormCreateEdit", "Class")
+    <div id="modalAdd" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-ku">
+
+            <!-- Modal content-->
+            <div class="modal-content add-or-edit">
+
+            </div>
+
+        </div>
     </div>
 </div>
-
 @section scripts{
     <script src="~/Scripts/Class.js"></script>
+
+    <script>
+        var data = {
+            pageNumber: 1,
+            pageSize: 5,
+            search: "",
+            subjectID: 0,
+            searchcode: "",
+        }
+        GetListStudent('/Class/ListClass', 'get-data');
+        Search('/Class/ListClass', 'get-data');
+        Searchcode('/Class/ListClass', 'get-data');
+        FillterBySubject('/Class/ListClass', 'get-data');
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+@*@{
+        ViewBag.Title = "Index";
     }
+
+    <div class=" container">
+        <h1> Quản lý lớp học </h1>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <label>Nhập tên lớp:</label>
+                <input type="text" name="searchname" value="" placeholder="Nhập từ khóa..." class="form-control" />
+            </div>
+
+        </div>
+
+        <hr />
+        <div class="list-class">
+
+        </div>
+        <hr />
+        <div class="form-add-edit">
+            @Html.Action("FormCreateEdit", "Class")
+        </div>
+    </div>
+
+    @section scripts{
+        <script src="~/Scripts/Class.js"></script>*@
+}

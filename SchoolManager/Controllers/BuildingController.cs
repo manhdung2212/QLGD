@@ -18,15 +18,15 @@ namespace SchoolManager.Controllers
         
         public PartialViewResult ListBuilding(int pageNumber, int pageSize, string search)
         {
-            
 
-            var data = db.Buildings.OrderBy(x=>x.Name);
-            if (search.Trim() != "")
+            search = search.ToLower();
+            var data = db.Building.ToList();
+            if( search.Trim() != "")
             {
-                data = data.Where(x => x.Name.Contains(search) ).OrderBy(x=>x.Name);
-                
+                data =  data.Where( x => x.Name.ToLower().Contains(search) || x.Node.ToLower().Contains(search)).ToList();  
+
             }
-            
+
             var pageCount = data.Count() % pageSize == 0 ? data.Count() / pageSize : data.Count() / pageSize + 1;
             ViewBag.pageCount = pageCount;
             if ( pageCount >= pageNumber)
@@ -43,14 +43,14 @@ namespace SchoolManager.Controllers
         }
         public PartialViewResult FormCreateEdit( int id )
         {
-            ViewBag.data = db.Buildings.Find(id);  
+            ViewBag.data = db.Building.Find(id);  
             
             return PartialView();
         }
        
         public PartialViewResult InfoDetail(int id)
         {
-            Building cl = db.Buildings.Find(id);
+            Building cl = db.Building.Find(id);
             return PartialView(cl);
         }
 
@@ -65,11 +65,11 @@ namespace SchoolManager.Controllers
                 cl.Status = status;
                 cl.CreateDate = DateTime.Now;
 
-                db.Buildings.Add(cl);
+                db.Building.Add(cl);
             }
             else
             {
-                var cl = db.Buildings.Find(id);
+                var cl = db.Building.Find(id);
                 cl.Node = node;
                 cl.Name = name;
                 cl.Status = status;
@@ -81,8 +81,8 @@ namespace SchoolManager.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var cl = db.Buildings.Find(id);
-            db.Buildings.Remove(cl); 
+            var cl = db.Building.Find(id);
+            db.Building.Remove(cl); 
             db.SaveChanges();
             return Json(true);
         }

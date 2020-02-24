@@ -1,82 +1,81 @@
-﻿@model IEnumerable<SchoolManager.Models.Subject>
-
-
-<div class="list-data">
-    <div class="row data-item">
-        <div class="col-md-3 d-flex justify-content-start">
-            <p class="data-title"> Tên môn học </p>
-        </div>
-        <div class="col-md-4 d-flex justify-content-start">
-            <p class="data-title"> Ghi chú </p>
-        </div>
-        <div class="col-md-3 d-flex justify-content-start">
-            <p class="data-title"> Trạng thái</p>
-        </div>
-        <div class="col-md-2 d-flex justify-content-end">
-        </div>
-    </div>
-    @foreach (var item in Model)
-    {
-        <div class="row data-item">
-            <div class="col-md-3 d-flex justify-content-start">
-                <p> @item.Name </p>
-            </div>
-            <div class="col-md-4 d-flex justify-content-start">
-                <p> @item.Node</p>
-            </div>
-            <div class="col-md-3 d-flex justify-content-start">
-                @if (item.Status == 0)
+﻿@model IEnumerable<SchoolManager.Models.Subjects>
+<div class="data-body">
+    <table class="table">
+        <thead class="bg-gradient-light">
+            <tr>
+                <th> Tên Môn  </th>
+                <th> Ghi chú </th>
+                <th> Trạng thái </th>
+                <th class="d-flex justify-content-center"> Tác vụ </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td> @item.Name </td>
+                @if (item.Node.ToString().Length > 200)
                 {
-                    <p> Đang được giảng dạy </p>
+                    <td> @item.Node.ToString().Substring(0, 200)</td>
+
                 }
                 else
                 {
-                    <p> Ngừng giảng dạy </p>
-                }
-            </div>
-            <div class="col-md-2 d-flex justify-content-end">
-                <button class="btn btn-edit " data-id="@item.ID" data-name="@item.Name" data-node="@item.Node" data-createdate="@item.CreateDate" data-updatedate="@item.UpdateDate" data-createby="@item.CreateBy" data-updateby="@item.UpdateBy" data-status="@item.Status"><i class="text-success far fa-edit"></i></button>
-                <button type="button" class="btn  btn-detail" data-id="@item.ID" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle text-primary"></i> </button>
-                <button class="btn btn-delete " data-id="@item.ID"><i class="text-danger far fa-trash-alt"></i></button>
-            </div>
-        </div>
-        
-    }
-</div>
-<div class="modal fade" role="dialog" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+                    <td> @item.Node.ToString()</td>
 
-            <!-- Modal Header -->
+                }
+                @if (item.Status == 0)
+                {
+                    <td> Đang giảng dạy</td>
+                }
+                else
+                {
+                    <td> Ngừng giảng dạy </td>
+                }
+                <td class="d-flex justify-content-end">
+                    <button class="btn btn-edit p-0" data-toggle="modal" data-target="#modalAdd" type="button" onclick="EditClick(@item.ID , '/Subject/FormCreateEdit' , 'add-or-edit')"> <i class="far fa-edit text-success"></i> </button>
+                    <button class="btn btn-detail p-0" data-toggle="modal" data-target="#modalAdd2" type="button" onclick="GetByID(@item.ID,'/Subject/DetailInfo','infoDetail')"><i class="fas fa-info-circle  text-primary"></i></button>
+                    <button class="btn btn-delete p-0" onclick="Delete(@item.ID , '/Subject/Delete', '/Subject/Listsubject' , 'get-data')"> <i class="far fa-trash-alt text-danger"></i> </button>
+                </td>
+            </tr>
+            }
+
+
+        </tbody>
+
+        
+    </table>
+</div>
+<div id="modalAdd2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        Modal content
+        <div class="modal-content">
             <div class="modal-header bg-gradient-yellow">
-                <h4 class="modal-title text-white">Thông Tin Chi Tiết</h4>
+                <h4 class="modal-title text-white"> Cập nhập thông tin</h4>
                 <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
+            <div class="infoDetail modal-body">
 
             </div>
-
-            <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
 
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
-
 <div class="pagination">
     @for (int i = 1; i <= ViewBag.pageCount; i++)
     {
         if (i == ViewBag.pageNumber)
         {
-            <button data-page="@i" class="active">@i</button>
+            <button data-page="@i" class="active">  @i  </button>
+
         }
         else
         {
-            <button data-page="@i">@i</button>
+            <button data-page="@i" onclick="Pagination( @i ,  '/Subject/Listsubject' , 'get-data')">  @i  </button>
         }
     }
 </div>

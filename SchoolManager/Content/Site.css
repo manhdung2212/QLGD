@@ -16,12 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
 
 .content-wrapper {
     margin-top: 4px !important;
@@ -51,7 +45,7 @@ margin: 0 8px 0 0;
 .pagination button.active , .pagination button:hover{
     background: #0069bc;
     border: 1px solid #0069bc;
-    color: yellow;
+    color: #fff;
 }
 
 .list-data .data-item {
@@ -75,12 +69,6 @@ margin: 0 8px 0 0;
 
 .btn-edit {
 }
-
-.add-or-edit label {
-    font-size: 22px;
-    font-weight: 400 !important;
-}
-
 .add-or-edit button {
     margin: 0 8px 0 0;
 }
